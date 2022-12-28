@@ -3,6 +3,7 @@ import { storageService } from '../../../services/async-storage.service.js'
 const EMAIL_STOARGE_KEY = 'emailsDB'
 
 _createEmails()
+
 export const MailServices = {
     query,
     get,
@@ -22,7 +23,8 @@ function _createEmails() {
                 body: 'Would love to catch up sometimes',
                 isRead: false,
                 sentAt: 1551133930594,
-                to: 'momo@momo.com'
+                to: 'momo@momo.com',
+                from:'Harry potter'
             },
             {
                 id: 'e102',
@@ -30,7 +32,9 @@ function _createEmails() {
                 body: 'Would love to catch up sometimes',
                 isRead: false,
                 sentAt: 1551133930594,
-                to: 'momo@momo.com'
+                to: 'momo@momo.com',
+                from:'Harry potter'
+
             },
             {
                 id: 'e103',
@@ -38,7 +42,9 @@ function _createEmails() {
                 body: 'Would love to catch up sometimes',
                 isRead: false,
                 sentAt: 1551133930594,
-                to: 'momo@momo.com'
+                to: 'momo@momo.com',
+                from:'Harry potter'
+
             },
         ]
         storageService.saveToStorage(EMAIL_STOARGE_KEY, emails)

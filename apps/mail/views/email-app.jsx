@@ -3,9 +3,9 @@ const { useState, useEffect } = React
 
 
 import { MailServices } from '../services/mail.service.js'
-import { MailFolderList } from '../cmps/email-folder-list.jsx'
-import { EmailFilter } from '../cmps/mail-filter.jsx'
-import { MailList } from '../cmps/email-list.jsx'
+import { MailFolderList } from '../cmps/mail-folder-list.jsx'
+import { MailList } from '../cmps/mail-list.jsx'
+import { MailFilter } from '../cmps/mail-filter.jsx'
 
 export function EmailApp() {
     const [emails, setEmails] = useState([])
@@ -19,9 +19,8 @@ export function EmailApp() {
         MailServices.query().then(setEmails)
     }
 
-    console.log(emails)
     return <section className="mail-index full">
-        <EmailFilter />
+        <MailFilter />
         <section className="mail-content">
             <MailFolderList />
             <MailList emails={emails} />
