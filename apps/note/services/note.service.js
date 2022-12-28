@@ -8,6 +8,7 @@ export const noteService = {
     get,
     remove,
     save,
+    getEditorForm
 }
 
 // CREATE
@@ -62,6 +63,33 @@ function query() {
 
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
+}
+
+function getEditorForm(isExpanded) {
+    const baseForm = [
+        {
+            type: 'textBox',
+            id: 'ne101',
+            info: {
+                label: 'editorTitle',
+                placeholder: 'Title'
+            }
+        },
+        {
+            type: 'textArea',
+            id: 'ne102',
+            info: {
+                label: 'editorContent',
+                placeholder: 'Take a note...'
+            }
+        }
+    ]
+
+    if(!isExpanded){
+        return baseForm.filter(input => input.id === 'ne101')
+    }
+
+    return baseForm
 }
 
 // UPDATE
