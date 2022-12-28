@@ -45,7 +45,7 @@
     content: "\f1b4";
 }
 
-.fa.fa-light .fa-pencil::before {
+.fa-light .fa-pencil::before {
     content: "\f303";
 }
 

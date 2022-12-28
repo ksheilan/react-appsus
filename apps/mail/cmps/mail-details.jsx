@@ -1,3 +1,3 @@
-export function EmailDetails() {
+export function MailDetails() {
     return <h1>hello form details</h1>
 }

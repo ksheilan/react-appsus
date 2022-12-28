@@ -2,6 +2,10 @@ body {
     margin: 0;
 }
 
+td {
+    border: none;
+}
+
 h1,
 h2,
 h3,

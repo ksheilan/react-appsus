@@ -1,0 +1,26 @@
+.mail-folder-list {
+    position: fixed;
+    flex-direction: row;
+    bottom: 10px;
+    min-width: 100vw;
+    background-color: aquamarine;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+@media(min-width:650px) {
+    .mail-folder-list {
+        position: static;
+        flex-direction: column;
+        bottom: 0;
+        min-height: 90.3vh;
+        min-width: fit-content;
+    }
+}
+
+
+
+.mail-folder-list a {
+    padding: 0.7em;
+}

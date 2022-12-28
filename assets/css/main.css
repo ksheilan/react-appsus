@@ -10,11 +10,13 @@
 /* @import './basics/layout.css'; */
 
 /* Views */
-@import './views/home.css';
+/* @import './views/home.css'; */
 
 /* @import './apps/note/views/note-app.css'; */
 
-/* @import './apps/mail/views/mail-app.css'; */
+@import '/apps/mail/assets/mail-app.css';
+@import '/apps/mail/assets/mail-index.css';
+@import '/apps/mail/assets/email-folder-list.css';
 
 /* Cmps */
 

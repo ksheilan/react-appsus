@@ -1,0 +1,21 @@
+.mail-content {
+    display: flex;
+}
+
+.email-list {
+   flex-grow: 1;
+}
+.email {
+    gap: 10px;
+    align-items: center;
+    padding-left: 0.5em;
+}
+.email input {
+    width: 15px;
+}
+
+.email button {
+    background: none;
+    border: none;
+    /* background-color: black; */
+}

@@ -3,8 +3,12 @@ import { storageService } from '../../../services/async-storage.service.js'
 const EMAIL_STOARGE_KEY = 'emailsDB'
 
 _createEmails()
-export const MailServices {
-
+export const MailServices = {
+    query,
+    get,
+    remove,
+    save,
+    getHumenDate,
 }
 
 
@@ -21,7 +25,7 @@ function _createEmails() {
                 to: 'momo@momo.com'
             },
             {
-                id: 'e101',
+                id: 'e102',
                 subject: 'Miss you!',
                 body: 'Would love to catch up sometimes',
                 isRead: false,
@@ -29,7 +33,7 @@ function _createEmails() {
                 to: 'momo@momo.com'
             },
             {
-                id: 'e101',
+                id: 'e103',
                 subject: 'Miss you!',
                 body: 'Would love to catch up sometimes',
                 isRead: false,
@@ -46,4 +50,36 @@ function _createEmails() {
 const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
+}
+
+function query() {
+    return storageService.query(EMAIL_STOARGE_KEY)
+        .then(emails => {
+            return emails
+        })
+}
+
+function get(mailId) {
+    return storageService.get(EMAIL_STOARGE_KEY, mailId)
+}
+
+
+function save(mail) {
+    if (mail.id) {
+        return storageService.put(EMAIL_STOARGE_KEY, mail)
+    } else {
+        return storageService.post(EMAIL_STOARGE_KEY, mail)
+    }
+}
+
+function remove(mailId) {
+    return storageService.remove(EMAIL_STOARGE_KEY, mailId)
+}
+
+
+
+function getHumenDate(timestamp) {
+    var theDate = new Date(timestamp);
+    var dateString = theDate.toGMTString();
+    return dateString
 }
