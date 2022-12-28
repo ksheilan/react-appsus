@@ -1,3 +1,5 @@
 export function MailDetails() {
-    return <h1>hello form details</h1>
+    return <section className="mail-details">
+
+    </section>
 }
