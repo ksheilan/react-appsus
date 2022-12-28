@@ -19,7 +19,7 @@ export function NoteIndex() {
         })
     }
 
-    return <div>
+    return <div className="note-gallery grid">
         {notes.map(note => <NoteItem key={note.id} note={note} />)}
     </div>
 
