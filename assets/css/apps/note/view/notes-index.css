@@ -1,4 +1,5 @@
 @import '../cmps/note-item.css';
+@import '../cmps/note-editor.css';
 
 .notes-layout{
     margin-block-start: 30px;

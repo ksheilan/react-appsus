@@ -86,7 +86,7 @@ function getEditorForm(isExpanded) {
     ]
 
     if(!isExpanded){
-        return baseForm.filter(input => input.id === 'ne101')
+        return baseForm.filter(input => input.id === 'ne102')
     }
 
     return baseForm

@@ -1,0 +1,7 @@
+.note-editor {
+    width: 50vw;
+}
+
+.note-editor>.editor-item {
+    width: 100%;
+}

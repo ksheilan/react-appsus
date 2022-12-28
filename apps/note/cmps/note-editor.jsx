@@ -4,45 +4,50 @@ const { useState, useEffect, Fragment } = React
 import { utilService } from "../../../services/util.service.js"
 import { noteService } from "../services/note.service.js"
 
-export function NoteEditor() {
-    const [isExpanded, setIsExpanded] = useState(false)
+export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded }) {
     const [editorForm, setEditorForm] = useState([])
     const [answersMap, setAnswersMap] = useState({})
 
     useEffect(() => {
         loadEditorForm()
-        console.log('editor filtered', noteService.getEditorForm(false))
-        console.log('editor not filtered', noteService.getEditorForm(true))
-    }, [isExpanded])
+    }, [isEditorExpanded])
 
     function loadEditorForm() {
-        setEditorForm(noteService.getEditorForm(isExpanded))
+        setEditorForm(noteService.getEditorForm(isEditorExpanded))
     }
 
-    function toggleExpanded() {
-        console.log("isExpanded", isExpanded);
-        setIsExpanded(!isExpanded)
-    }
     function onChangeVal(id, val) {
         const answersToSave = { ...answersMap }
         answersToSave[id] = val
         setAnswersMap(answersToSave)
     }
+
     function processInput(input) {
         switch (input.type) {
             case 'textBox':
                 return <_NodeEditorTextBox
                     type={input.type}
                     val={answersMap[input.id] || ''}
+                    placeholder="Title"
+                    onChangeVal={(val) => {
+                        onChangeVal(input.id, val)
+                    }}
+                />
+            case 'textArea':
+                return <_NodeEditorTextArea
+                    type={input.type}
+                    val={answersMap[input.id] || ''}
                     placeholder="Enter text.."
-                    onClick={toggleExpanded}
+                    onClick={() => setIsEditorExpanded(true)}
                     onChangeVal={(val) => {
                         onChangeVal(input.id, val)
                     }}
                 />
         }
     }
-    return <div className="note-editor">
+
+
+    return <div className="note-editor" ref={editorRef}>
         {
             editorForm.map(input => <div key={input.id}>
                 {processInput(input)}
@@ -52,10 +57,26 @@ export function NoteEditor() {
 }
 
 
-function _NodeEditorTextBox({ label, val, onChangeVal, placeholder, onClick }) {
+function _NodeEditorTextBox({ label, val, onChangeVal, placeholder }) {
     return (
         <label htmlFor={label}>
-            <input type="textBox"
+            <input
+                style={{ width: '100%' }}
+                type="textBox"
+                val={val}
+                placeholder={placeholder}
+                onChange={(ev) => {
+                    onChangeVal(ev.target.value)
+                }} />
+        </label>
+    )
+}
+
+function _NodeEditorTextArea({ label, val, onChangeVal, placeholder, onClick }) {
+    return (
+        <label htmlFor={label}>
+            <textarea
+                style={{ width: '100%' }}
                 val={val}
                 placeholder={placeholder}
                 onClick={() => onClick()}
@@ -64,17 +85,4 @@ function _NodeEditorTextBox({ label, val, onChangeVal, placeholder, onClick }) {
                 }} />
         </label>
     )
-}
-
-function TextBox({ info, val = '', onChangeVal }) {
-    const { label } = info
-    return (
-        <label>
-            {label}
-            <input type="text" value={val} onChange={(ev) => {
-                onChangeVal(ev.target.value)
-            }} />
-        </label>
-    )
-
 }
