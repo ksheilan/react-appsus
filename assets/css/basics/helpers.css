@@ -2,7 +2,8 @@
     display: flex;
 }
 
-.column {
+.flexC {
+    display: flex;
     flex-direction: column;
 }
 

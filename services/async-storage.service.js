@@ -4,6 +4,8 @@ export const storageService = {
     post,
     put,
     remove,
+    oldSave: saveToStorage,
+    oldLoad: loadFromStorage,
 }
 
 function query(entityType, delay = 500) {
@@ -20,7 +22,7 @@ function get(entityType, entityId) {
 }
 
 function post(entityType, newEntity) {
-    newEntity = {...newEntity}
+    newEntity = { ...newEntity }
     newEntity.id = _makeId()
     return query(entityType).then(entities => {
         entities.push(newEntity)
@@ -61,4 +63,13 @@ function _makeId(length = 5) {
         text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return text
+}
+
+function saveToStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+}
+
+function loadFromStorage(key) {
+    const data = localStorage.getItem(key)
+    return (data) ? JSON.parse(data) : undefined
 }
