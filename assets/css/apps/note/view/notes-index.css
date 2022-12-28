@@ -1,8 +1,12 @@
 @import '../cmps/note-item.css';
 
+.notes-layout{
+    margin-block-start: 30px;
+}
+
 .note-gallery{
     grid-template-columns: repeat(auto-fit, 240px);
     gap: 10px;
     width: auto;
-    margin: 30px auto;
+    padding-block-start: 20px;
 }
