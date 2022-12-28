@@ -20,7 +20,7 @@ export function EmailApp() {
     }
 
     console.log(emails)
-    return <section className="mail-index">
+    return <section className="mail-index full">
         <EmailFilter />
         <section className="mail-content">
             <MailFolderList />

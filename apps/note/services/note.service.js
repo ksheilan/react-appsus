@@ -1,4 +1,3 @@
-import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
@@ -9,8 +8,6 @@ export const noteService = {
     get,
     remove,
     save,
-    // getEmptyCar,
-    // getDefaultFilter,
 }
 
 // CREATE
@@ -63,14 +60,10 @@ function query() {
         })
 }
 
-// function getEmptyNote() {
-//     return { }
-// }
-
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
-    // return axios.get(CAR_KEY, carId)
 }
+
 // UPDATE
 function save(note) {
     if (note.id) {
@@ -79,8 +72,8 @@ function save(note) {
         return storageService.post(NOTE_KEY, note)
     }
 }
-// DELETE
 
+// DELETE
 function remove(noteId) {
     return storageService.remove(NOTE_KEY, noteId)
 }

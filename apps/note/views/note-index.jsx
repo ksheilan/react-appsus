@@ -2,6 +2,8 @@ const { useState, useEffect } = React
 
 import { noteService } from "../services/note.service.js"
 
+import { NoteItem } from "../cmps/note-item.jsx"
+
 export function NoteIndex() {
     const [isLoading, setIsLoading] = useState(false)
     const [notes, setNotes] = useState([])
@@ -13,14 +15,12 @@ export function NoteIndex() {
 
     function loadNotes() {
         noteService.query().then((notesToUpdate) => {
-            console.log('notesToUpdate', notesToUpdate)
-            // Set state is asynchronious
-            // setCars(carsToUpdate)
-            // setIsLoading(false)
-            // console.log('cars', cars)
+            setNotes(notesToUpdate)
         })
     }
 
-    return <div>note app</div>
+    return <div>
+        {notes.map(note => <NoteItem key={note.id} note={note} />)}
+    </div>
 
 }
