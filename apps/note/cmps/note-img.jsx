@@ -1,5 +1,9 @@
-export function NoteImg() {
+const { Fragment } = React
 
-    return <div>note img</div>
-
+export function NoteImg({ info }) {
+    return <Fragment>
+        <p>{'<Img Note>'}</p>
+        <p>{`title: ${info.title}`}</p>
+        <p>{`url: ${info.url}`}</p>
+    </Fragment>
 }

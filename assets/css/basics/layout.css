@@ -1,0 +1,3 @@
+.app>*:not(.full) {
+    margin-inline: var(--page-padding);
+}

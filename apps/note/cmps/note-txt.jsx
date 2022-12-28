@@ -1,5 +1,8 @@
-export function NoteTxt() {
+const { Fragment } = React
 
-    return <div>note text</div>
-
+export function NoteTxt({ info }) {
+    return <Fragment>
+        <p>{'<Text Note>'}</p>
+        <p>{`txt: ${info.txt}`}</p>
+        </Fragment>
 }
