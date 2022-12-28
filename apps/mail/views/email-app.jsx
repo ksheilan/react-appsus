@@ -9,7 +9,7 @@ import { MailFilter } from '../cmps/mail-filter.jsx'
 
 export function EmailApp() {
     const [emails, setEmails] = useState([])
-    const [filterBy, setFilterBy] = useState({ txt: '', minPrice: '' })
+    const [filterBy, setFilterBy] = useState({ from: '' })
 
     useEffect(() => {
         loadEmails()
@@ -23,7 +23,7 @@ export function EmailApp() {
         <MailFilter />
         <section className="mail-content">
             <MailFolderList />
-            <MailList emails={emails} />
+            <MailList />
 
 
         </section>

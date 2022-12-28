@@ -21,7 +21,7 @@ function _createEmails() {
                 id: 'e101',
                 subject: 'Miss you!',
                 body: 'Would love to catch up sometimes',
-                isRead: false,
+                isRead: '',
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from:'Harry potter'
@@ -30,7 +30,7 @@ function _createEmails() {
                 id: 'e102',
                 subject: 'Miss you!',
                 body: 'Would love to catch up sometimes',
-                isRead: false,
+                isRead: '',
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from:'Harry potter'
@@ -40,7 +40,7 @@ function _createEmails() {
                 id: 'e103',
                 subject: 'Miss you!',
                 body: 'Would love to catch up sometimes',
-                isRead: false,
+                isRead: '',
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from:'Harry potter'

@@ -17,5 +17,6 @@
 .email button {
     background: none;
     border: none;
+    cursor: pointer;
     /* background-color: black; */
 }

@@ -30,9 +30,15 @@ export function MailDetails() {
         <MailFilter />
         <section className="mail-content">
             <MailFolderList />
-            <div className="mail-info">
-                <h2>From: {mail.from}</h2>
-                <img src={`https://robohash.org/${mail.id}`} />
+            <div className="mail-info flex">
+                <h1>{mail.subject}</h1>
+                <div className="mail-info-head flex">
+                    <h2>From: {mail.from}</h2>
+                    <button className="fa-regular fa-star"></button>
+                </div>
+                <p>{mail.body}</p>
+
+
 
 
 
