@@ -9,6 +9,7 @@ export function MailFilter() {
         onload()
     }, [])
 
+    
     function onload() {
         MailServices.query()
             .then((mails) => {

@@ -1,15 +1,18 @@
 import { storageService } from '../../../services/async-storage.service.js'
+import { utilService } from '../../../services/util.service.js'
 
 const EMAIL_STOARGE_KEY = 'emailsDB'
+const USER_EMAIL_STOARGE_KEY = 'userEmailsDB'
 
 _createEmails()
-
+_createUser()
 export const MailServices = {
     query,
     get,
     remove,
     save,
     getHumenDate,
+    getEmptyMail,
 }
 
 
@@ -24,7 +27,7 @@ function _createEmails() {
                 isRead: '',
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from:'Harry potter'
+                from: 'Harry potter'
             },
             {
                 id: 'e102',
@@ -33,7 +36,7 @@ function _createEmails() {
                 isRead: '',
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from:'Harry potter'
+                from: 'Harry potter'
 
             },
             {
@@ -43,7 +46,7 @@ function _createEmails() {
                 isRead: '',
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from:'Harry potter'
+                from: 'Harry potter'
 
             },
         ]
@@ -53,9 +56,41 @@ function _createEmails() {
 
 }
 
-const loggedinUser = {
-    email: 'user@appsus.com',
-    fullname: 'Mahatma Appsus'
+function _createUser() {
+    let user = storageService.loadFromStorage(USER_EMAIL_STOARGE_KEY)
+    if (!user) {
+        user = {
+            email: 'user@appsus.com',
+            fullname: 'Mahatma Appsus',
+            mails: [
+                {
+                    id: utilService.makeId(),
+                    subject: 'Miss you!',
+                    body: 'Would love to catch up sometimes',
+                    isRead: '',
+                    sentAt: 1551133930594,
+                    to: 'momo@momo.com',
+                    from: 'user@appsus.com'
+                },
+            ]
+        }
+        storageService.saveToStorage(USER_EMAIL_STOARGE_KEY, user)
+        console.log('from server no good')
+    }
+}
+
+
+
+
+function getEmptyMail() {
+    const mail = {
+        subject: '',
+        body: '',
+        isRead: '',
+        sentAt: new Date(),
+        to: '',
+        from: 'user@appsus.com'
+    }
 }
 
 function query() {
