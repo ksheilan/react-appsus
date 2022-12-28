@@ -4,8 +4,8 @@ export const storageService = {
     post,
     put,
     remove,
-    oldSave: saveToStorage,
-    oldLoad: loadFromStorage,
+    saveToStorage,
+    loadFromStorage,
 }
 
 function query(entityType, delay = 500) {
