@@ -25,7 +25,7 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
     function processInput(input) {
         switch (input.type) {
             case 'textBox':
-                return <_NodeEditorTextBox
+                return <_NoteEditorTextBox
                     type={input.type}
                     val={answersMap[input.id] || ''}
                     placeholder="Title"
@@ -34,7 +34,7 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
                     }}
                 />
             case 'textArea':
-                return <_NodeEditorTextArea
+                return <_NoteEditorTextArea
                     type={input.type}
                     val={answersMap[input.id] || ''}
                     placeholder="Enter text.."
@@ -57,11 +57,11 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
 }
 
 
-function _NodeEditorTextBox({ label, val, onChangeVal, placeholder }) {
+function _NoteEditorTextBox({ label, val, onChangeVal, placeholder }) {
     return (
         <label htmlFor={label}>
             <input
-                style={{ width: '100%' }}
+                className="editor-item"
                 type="textBox"
                 val={val}
                 placeholder={placeholder}
@@ -72,11 +72,11 @@ function _NodeEditorTextBox({ label, val, onChangeVal, placeholder }) {
     )
 }
 
-function _NodeEditorTextArea({ label, val, onChangeVal, placeholder, onClick }) {
+function _NoteEditorTextArea({ label, val, onChangeVal, placeholder, onClick }) {
     return (
         <label htmlFor={label}>
             <textarea
-                style={{ width: '100%' }}
+                className="editor-item"
                 val={val}
                 placeholder={placeholder}
                 onClick={() => onClick()}

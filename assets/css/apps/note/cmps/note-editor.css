@@ -1,7 +1,10 @@
 .note-editor {
     width: 50vw;
+    border: 1px solid rgb(117, 117, 117);
 }
 
-.note-editor>.editor-item {
+.note-editor .editor-item {
     width: 100%;
+    border: none;
+    resize: vertical;
 }
