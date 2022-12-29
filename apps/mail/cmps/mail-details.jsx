@@ -2,7 +2,6 @@ const { useParams, useNavigate, Link } = ReactRouterDOM
 const { useState, useEffect } = React
 
 import { MailFolderList } from "./mail-folder-list.jsx"
-import { MailFilter } from "./mail-filter.jsx"
 
 import { MailServices } from "../services/mail.service.js"
 
@@ -33,7 +32,6 @@ export function MailDetails() {
 
     if (!mail) return <h2>loading</h2>
     return <section className="mail-details full">
-        <MailFilter />
         <section className="mail-content">
             <MailFolderList />
             <div className="mail-info flex">

@@ -95,6 +95,36 @@ function _createEmails() {
                 from: 'Harry potter'
 
             },
+            {
+                id: 'e108',
+                subject: 'GitHub',
+                body: '0 included private minutes $0.00 USD GitHub Packages 0GB of 10GB included data transfer out $0.00 USDStorage for Actions and Packages 0.0GB of 2.0GB included storage $0.00 USD Total $4.00 USD Charged to: Visa(* *** **** **** ***) Transaction ID: CH_3M4545454545454L4UDate: 22 Dec 2022 10 05AM PSTFor service through: 2023 - 01 -GitHub Inc88 Colin P.Kelly Jr.StreetSan Francisco CA 94107------------------------------------VAT / GST paid directly by GitHub where applicable',
+                isRead: false,
+                sentAt: 1551133930594,
+                to: 'momo@momo.com',
+                from: loggedinUser.email
+
+            },
+            {
+                id: 'e109',
+                subject: 'Google Maps Platform',
+                body: 'Would love to catch up sometimes',
+                isRead: false,
+                sentAt: 1551133930594,
+                to: 'momo@momo.com',
+                from: loggedinUser.email
+
+            },
+            {
+                id: 'e110',
+                subject: 'לוח דרושים',
+                body: 'Would love to catch up sometimes',
+                isRead: false,
+                sentAt: 1551133930594,
+                to: 'momo@momo.com',
+                from: loggedinUser.email
+
+            },
         ]
         storageService.saveToStorage(EMAIL_STOARGE_KEY, emails)
         console.log('from server no good')
@@ -126,7 +156,7 @@ function _createEmails() {
 // }
 
 function getDefaultFilter() {
-    return { from: '', isRead: '' }
+    return { from: '', isRead: ''}
 }
 
 function getEmptyMail() {
@@ -136,7 +166,7 @@ function getEmptyMail() {
         isRead: false,
         sentAt: new Date(),
         to: '',
-        from: 'user@appsus.com'
+        from: loggedinUser.email
     }
     return mail
 }

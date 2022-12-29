@@ -24,6 +24,7 @@
 
 .mail-folder-list a {
     padding: 0.7em;
+    cursor: pointer;
 }
 
 .fa-light .fa-pencil::before {

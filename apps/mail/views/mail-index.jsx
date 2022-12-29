@@ -32,6 +32,18 @@ export function MailIndex() {
             })
     }
 
+    function setFilterBySent() {
+        setFilterBy((prevFilter) => {
+            return { ...prevFilter, from: prevFilter.from ? '' : 'user@appsus.com' }
+        })
+    }
+
+    function setFilterByOpen() {
+        setFilterBy((prevFilter) => {
+            return { ...prevFilter, isRead: prevFilter.isRead ? false : true }
+        })
+    }
+
     function onMoveToPreview(mailId) {
         MailServices.get(mailId)
             .then((mail) => {
@@ -57,7 +69,7 @@ export function MailIndex() {
     return <section className="mail-index full">
         <MailFilter onSetFilterBy={onSetFilterBy} />
         <section className="mail-content full">
-            <MailFolderList />
+            <MailFolderList setFilterByOpen={setFilterByOpen} setFilterBySent={setFilterBySent} />
             <MailList onMoveToPreview={onMoveToPreview} onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
         </section>
     </section>
