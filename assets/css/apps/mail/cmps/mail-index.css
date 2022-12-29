@@ -1,7 +1,6 @@
-.mail-index {
-    /* background-color: aquamarine; */
-    min-height: 93vh;
-}
+/* .mail-index { */
+    /* max-height: 93vh; */
+/* } */
 
 .emails-main-area {
     background-color: var(--email-bg-color);

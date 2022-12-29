@@ -1,0 +1,19 @@
+.mail-compose-area {
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-grow: 1;
+    min-height: 91vh;
+}
+
+.mail-compose-area form {
+    width: 250px;
+    border: 1px solid var(--email-color);
+}
+
+@media(min-width:650px) {
+    .mail-compose-area form {
+        width: 400px;
+    }
+    
+}

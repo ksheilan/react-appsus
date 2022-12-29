@@ -35,15 +35,16 @@ export function MailDetails() {
         <section className="mail-content">
             <MailFolderList />
             <div className="mail-info flex">
+                <div className="btn-box-details">
+                    <button onClick={() => onRemoveMail(mail.id)} className="fa-regular fa-trash-can" title="Delete"></button>
+                    <button className="fa-regular fa-star"></button>
+                    <button className="fa-regular fa-envelope-open" onClick={onGoBack} title="Go Back"></button>
+
+                </div>
                 <h1>{mail.subject}</h1>
                 <div className="mail-info-head flex">
                     <h2>From: {mail.from}</h2>
-                    <div className="btn-box-details">
-                        <button onClick={() => onRemoveMail(mail.id)} className="fa-regular fa-trash-can" title="Delete"></button>
-                        <button className="fa-regular fa-star"></button>
-                        <button className="fa-regular fa-envelope-open" onClick={onGoBack} title="Go Back"></button>
 
-                    </div>
                 </div>
                 <p>{mail.body}</p>
 

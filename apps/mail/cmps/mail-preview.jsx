@@ -1,6 +1,3 @@
-const { useEffect, useState } = React
-
-
 import { LongTxt } from './long-txt.jsx'
 import { MailServices } from '../services/mail.service.js'
 

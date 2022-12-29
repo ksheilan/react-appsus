@@ -21,7 +21,6 @@ export function MailFilter({ onSetFilterBy }) {
     }
 
     function onClickOnCheckBox({ target }) {
-        console.log(target.checked)
         setFilterBy((prevFilter) => {
             return { ...prevFilter, isRead: target.checked }
         })

@@ -11,7 +11,7 @@ const loggedinUser = {
 
 
 _createEmails()
-// _createUser()
+
 export const MailServices = {
     query,
     get,
@@ -132,31 +132,9 @@ function _createEmails() {
 
 }
 
-// function _createUser() {
-//     let user = storageService.loadFromStorage(USER_EMAIL_STOARGE_KEY)
-//     if (!user) {
-//         user = {
-//             email: 'user@appsus.com',
-//             fullname: 'Mahatma Appsus',
-//             mails: [
-//                 {
-//                     id: utilService.makeId(),
-//                     subject: 'Miss you!',
-//                     body: 'Would love to catch up sometimes',
-//                     isRead: '',
-//                     sentAt: 1551133930594,
-//                     to: 'momo@momo.com',
-//                     from: 'user@appsus.com'
-//                 },
-//             ]
-//         }
-//         storageService.saveToStorage(USER_EMAIL_STOARGE_KEY, user)
-//         console.log('from server no good')
-//     }
-// }
 
 function getDefaultFilter() {
-    return { from: '', isRead: ''}
+    return { from: '', isRead: '', isDelete: '' }
 }
 
 function getEmptyMail() {
@@ -180,8 +158,6 @@ function query(filterBy = getDefaultFilter()) {
             }
             if (filterBy.isRead === true) {
                 mails = mails.filter(mail => mail.isRead === true)
-            } else {
-                mails = mails.filter(mail => mail.isRead === false)
             }
             return mails
         })
@@ -204,7 +180,7 @@ function remove(mailId) {
 }
 
 function getHumenDate(timestamp) {
-    var theDate = new Date(timestamp);
-    var dateString = theDate.toGMTString();
-    return dateString
+    var theDate = new Date(timestamp)
+    var dateString = theDate.toGMTString()
+    return dateString.substring(5, 26)
 }

@@ -1,25 +1,23 @@
 .mail-content {
     display: flex;
+    min-height: 86.7vh;
 }
 
 .email {
-    /* gap: 10px; */
     align-items: center;
     padding-left: 0.5em;
     min-width: 450px;
 }
+
 .mail-info-index {
     align-items: center;
-    gap: 5px;
+    gap: 8px;
 }
 
 .mail-info-index:hover {
-    border: 1px solid var(--email-color);
+   font-weight: bold;
 }
 
-.email:hover {
-    scale: 1.01;
-}
 .email input {
     width: 15px;
 }

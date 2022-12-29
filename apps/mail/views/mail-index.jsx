@@ -1,4 +1,4 @@
-const { Link, useNavigate } = ReactRouterDOM
+const { Link, useNavigate, useParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
 
@@ -9,12 +9,26 @@ import { MailFilter } from '../cmps/mail-filter.jsx'
 
 export function MailIndex() {
     const [mails, setMails] = useState([])
-    const [filterBy, setFilterBy] = useState({ from: '', isRead: false })
+    const [filterBy, setFilterBy] = useState({ from: '', isRead: '' })
     const navigate = useNavigate()
+    const params = useParams()
+    console.log(params)
 
     useEffect(() => {
+        if (params.sent) {
+            setFilterBySent()
+        }
+        else if (params.wereRead) {
+            setFilterByOpen()
+        }
+        console.log('hi from useEffect')
+
+    }, [params])
+
+    useEffect(() => {
+
         loadEmails()
-    }, [filterBy])
+    }, [params, filterBy])
 
     function loadEmails() {
         MailServices.query(filterBy).then(setMails)
@@ -40,7 +54,7 @@ export function MailIndex() {
 
     function setFilterByOpen() {
         setFilterBy((prevFilter) => {
-            return { ...prevFilter, isRead: prevFilter.isRead ? false : true }
+            return { ...prevFilter, isRead: true }
         })
     }
 
@@ -49,19 +63,19 @@ export function MailIndex() {
             .then((mail) => {
                 mail.isRead = true
                 MailServices.save(mail)
-                navigate(`/mail/${mailId}`)
+                navigate(`/${mailId}`)
             })
     }
 
     function onReadMail(mailId) {
-        console.log('.')
-        // MailServices.get(mailId)
-        //     .then((mail) => {
-        //         mail.isRead = true
-        //         MailServices.save(mail)
-        //         const updatedMails = mails.filter(mail => mail.isRead === false)
-        //         return setMails(updatedMails)
-        //     })
+        MailServices.get(mailId)
+            .then((mail) => {
+                mail.isRead = true
+                MailServices.save(mail).then(() => {
+                    loadEmails()
+                })
+
+            })
 
     }
 
