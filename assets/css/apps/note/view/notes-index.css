@@ -3,6 +3,7 @@
 
 .notes-layout{
     margin-block-start: 30px;
+    padding-inline: var(--page-padding);
 }
 
 .note-gallery{

@@ -1,8 +1,8 @@
 const { Fragment } = React
 
-export function NoteTxt({ info }) {
+export function NoteTxt(val) {
     return <Fragment>
         <p>{'<Text Note>'}</p>
-        <p>{`txt: ${info.txt}`}</p>
-        </Fragment>
+        <p>{val}</p>
+    </Fragment>
 }

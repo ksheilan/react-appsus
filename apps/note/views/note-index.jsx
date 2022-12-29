@@ -9,27 +9,26 @@ export function NoteIndex() {
     const [isLoading, setIsLoading] = useState(false)
     const [notes, setNotes] = useState([])
     const [isEditorExpanded, setIsEditorExpanded] = useState(false)
-    const nodeEditorRef = useRef(null);
+    const noteEditorRef = useRef(null);
+
     useEffect(() => {
         setIsLoading(true)
         loadNotes()
     }, [isEditorExpanded])
+
     function loadNotes() {
         noteService.query().then((notesToUpdate) => {
             setNotes(notesToUpdate)
         })
     }
 
-    return <div className="notes-layout" onClick={(ev) => {
-        console.log('nodeEditorRef.current', nodeEditorRef.current);
-        console.log('ev.target', ev.target);
-        if (nodeEditorRef.current && !nodeEditorRef.current.contains(ev.target)) {
-            console.log('clicked div');
+    return <div className="notes-layout full" onClick={(ev) => {
+        if (noteEditorRef.current && !noteEditorRef.current.contains(ev.target)) {
             setIsEditorExpanded(false);
         }
     }}>
         <NoteEditor
-            editorRef={nodeEditorRef}
+            editorRef={noteEditorRef}
             isEditorExpanded={isEditorExpanded}
             setIsEditorExpanded={setIsEditorExpanded} />
         <div className="note-gallery grid" onClick={() => setIsEditorExpanded(false)}>
