@@ -1,5 +1,12 @@
 .note-item{
-    background: red;
     border-radius: 25px;
     padding-block: 0.75em;
+}
+
+.note-item>.title{
+    font-weight: 1000;
+}
+
+.note-item>.text{
+    white-space: pre-wrap;
 }
