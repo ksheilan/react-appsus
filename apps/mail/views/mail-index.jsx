@@ -9,7 +9,7 @@ import { MailFilter } from '../cmps/mail-filter.jsx'
 
 export function MailIndex() {
     const [mails, setMails] = useState([])
-    const [filterBy, setFilterBy] = useState({ from: '', isRead: '' })
+    const [filterBy, setFilterBy] = useState({ from: '', isRead: '', isDelete: '' })
     const navigate = useNavigate()
     const params = useParams()
     console.log(params)
@@ -20,15 +20,17 @@ export function MailIndex() {
         }
         else if (params.wereRead) {
             setFilterByOpen()
+        } else if (params.delete) {
+            setFilterByIsDelete()
         }
         console.log('hi from useEffect')
 
-    }, [params])
+    }, [])
 
     useEffect(() => {
 
         loadEmails()
-    }, [params, filterBy])
+    }, [filterBy])
 
     function loadEmails() {
         MailServices.query(filterBy).then(setMails)
@@ -39,8 +41,10 @@ export function MailIndex() {
     }
 
     function onRemoveMail(mailId) {
-        MailServices.remove(mailId)
-            .then(() => {
+        MailServices.get(mailId)
+            .then((mail) => {
+                mail.isDelete = true
+                MailServices.save(mail)
                 const updatedMails = mails.filter(mail => mail.id !== mailId)
                 setMails(updatedMails)
             })
@@ -51,6 +55,13 @@ export function MailIndex() {
             return { ...prevFilter, from: prevFilter.from ? '' : 'user@appsus.com' }
         })
     }
+
+    function setFilterByIsDelete() {
+        setFilterBy((prevFilter) => {
+            return { ...prevFilter, isDelete: true }
+        })
+    }
+
 
     function setFilterByOpen() {
         setFilterBy((prevFilter) => {

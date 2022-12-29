@@ -2,7 +2,6 @@ import { storageService } from '../../../services/async-storage.service.js'
 import { utilService } from '../../../services/util.service.js'
 
 const EMAIL_STOARGE_KEY = 'emailsDB'
-const USER_EMAIL_STOARGE_KEY = 'userEmailsDB'
 
 const loggedinUser = {
     email: 'user@appsus.com',
@@ -30,19 +29,23 @@ function _createEmails() {
                 id: 'e101',
                 subject: 'Miss you!',
                 body: 'Would love to catch up sometimes lets Celebrate Argentinas win with a nice drink at the beach',
-                isRead: false,
+                isRead: true,
                 sentAt: 1551133930594,
                 to: loggedinUser.email,
-                from: 'Harry potter'
+                from: 'Harry potter',
+                isDelete: false
+
             },
             {
                 id: 'e102',
                 subject: 'Your paypal account is log off',
                 body: 'Would love to catch up sometimes',
-                isRead: false,
+                isRead: true,
                 sentAt: 1551133930594,
                 to: loggedinUser.email,
-                from: 'Harry potter'
+                from: 'Harry potter',
+                isDelete: false
+
 
             },
             {
@@ -52,7 +55,9 @@ function _createEmails() {
                 isRead: false,
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from: loggedinUser.email
+                from: loggedinUser.email,
+                isDelete: false
+
 
             },
             {
@@ -62,7 +67,9 @@ function _createEmails() {
                 isRead: false,
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from: 'Harry potter'
+                from: 'Harry potter',
+                isDelete: false
+
 
             },
             {
@@ -72,7 +79,9 @@ function _createEmails() {
                 isRead: false,
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from: 'Harry potter'
+                from: 'Harry potter',
+                isDelete: false
+
 
             },
             {
@@ -82,7 +91,9 @@ function _createEmails() {
                 isRead: false,
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from: 'Harry potter'
+                from: 'Harry potter',
+                isDelete: true
+
 
             },
             {
@@ -92,7 +103,9 @@ function _createEmails() {
                 isRead: false,
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from: 'Harry potter'
+                from: 'Harry potter',
+                isDelete: false
+
 
             },
             {
@@ -102,7 +115,9 @@ function _createEmails() {
                 isRead: false,
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from: loggedinUser.email
+                from: loggedinUser.email,
+                isDelete: false
+
 
             },
             {
@@ -112,7 +127,9 @@ function _createEmails() {
                 isRead: false,
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from: loggedinUser.email
+                from: loggedinUser.email,
+                isDelete: false
+
 
             },
             {
@@ -122,7 +139,9 @@ function _createEmails() {
                 isRead: false,
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
-                from: loggedinUser.email
+                from: loggedinUser.email,
+                isDelete: false
+
 
             },
         ]
@@ -131,7 +150,6 @@ function _createEmails() {
     }
 
 }
-
 
 function getDefaultFilter() {
     return { from: '', isRead: '', isDelete: '' }
@@ -144,7 +162,8 @@ function getEmptyMail() {
         isRead: false,
         sentAt: new Date(),
         to: '',
-        from: loggedinUser.email
+        from: loggedinUser.email,
+        isDelete: false
     }
     return mail
 }
@@ -158,6 +177,9 @@ function query(filterBy = getDefaultFilter()) {
             }
             if (filterBy.isRead === true) {
                 mails = mails.filter(mail => mail.isRead === true)
+            }
+            if (filterBy.isDelete === true) {
+                mails = mails.filter(mail => mail.isDelete === true)
             }
             return mails
         })
