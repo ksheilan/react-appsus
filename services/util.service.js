@@ -1,3 +1,5 @@
+const youtubeRegEx = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?/
+
 export const utilService = {
     makeId,
     makeLorem,
@@ -6,6 +8,7 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    youtubeRegEx
 }
 
 function makeId(length = 4) {

@@ -1,8 +1,3 @@
-const { Fragment } = React
-
-export function NoteTxt(val) {
-    return <Fragment>
-        <p>{'<Text Note>'}</p>
-        <p>{val}</p>
-    </Fragment>
+export function NoteTxt({ val }) {
+    return <p className="text">{val}</p>
 }

@@ -7,19 +7,32 @@ import { noteService } from "../services/note.service.js"
 export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded }) {
     const [editorForm, setEditorForm] = useState([])
     const [answersMap, setAnswersMap] = useState({})
-
+    const [newNote, setNewNote] = useState(noteService.createEmptyNote())
     useEffect(() => {
         loadEditorForm()
+        if(!isEditorExpanded && newNote.info){
+            noteService.save(newNote)
+        }
     }, [isEditorExpanded])
 
     function loadEditorForm() {
         setEditorForm(noteService.getEditorForm(isEditorExpanded))
     }
 
-    function onChangeVal(id, val) {
+    function onChangeVal(input, val) {
         const answersToSave = { ...answersMap }
-        answersToSave[id] = val
+        const inputLabel = input.info.label
+        const newNoteInfo = newNote.info
+        answersToSave[input.id] = val
+
         setAnswersMap(answersToSave)
+        setNewNote({
+            ...newNote,
+            info: {
+                ...newNoteInfo,
+                [inputLabel === 'editorTitle' ? 'title' : 'txt']: val
+            }
+        })
     }
 
     function processInput(input) {
@@ -30,7 +43,7 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
                     val={answersMap[input.id] || ''}
                     placeholder="Title"
                     onChangeVal={(val) => {
-                        onChangeVal(input.id, val)
+                        onChangeVal(input, val)
                     }}
                 />
             case 'textArea':
@@ -40,7 +53,7 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
                     placeholder="Enter text.."
                     onClick={() => setIsEditorExpanded(true)}
                     onChangeVal={(val) => {
-                        onChangeVal(input.id, val)
+                        onChangeVal(input, val)
                     }}
                 />
         }

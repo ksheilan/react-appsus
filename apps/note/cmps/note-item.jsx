@@ -1,32 +1,25 @@
 const { useState, useEffect } = React
 
 import { noteService } from "../services/note.service.js"
+import { utilService } from "../../../services/util.service.js"
 
 import { NoteTxt } from "./note-txt.jsx"
 import { NoteImg } from "./note-img.jsx"
 import { NoteTodos } from "./note-todos.jsx"
-
+import { NoteTitle } from "./note-title.jsx"
 export function NoteItem({ note }) {
     const [updatedNote, setUpdatedNote] = useState(note)
 
-    function processNote(updatedNote) {
-        switch (updatedNote.type) {
-            case 'note-txt':
-                return <NoteTxt {...updatedNote} />
-            case 'note-img':
-                return <NoteImg {...updatedNote} />
-            case 'note-todos':
-                return <NoteTodos {...updatedNote} />
-        }
-    }
-
     function processNoteProp(key, val) {
-        console.log(key, val);
-        // switch (key) {
-        //     case 'txt':
-        //         return <p>blabla</p>
-        //     case 'img': return <NoteImg val={val} />
-        // }
+        switch (key) {
+            case 'txt':
+                if (utilService.youtubeRegEx.test(val)) {
+                    console.log('theres a youtube url', val.match(utilService.youtubeRegEx)[0])
+                }
+                return <NoteTxt val={val} />
+            case 'title':
+                return <NoteTitle val={val} />
+        }
     }
 
     function onEditNoteProp(key, val) {
@@ -34,7 +27,6 @@ export function NoteItem({ note }) {
         newNote.info[key] = val
         setUpdatedNote(newNote)
         noteService.save(newNote)
-        console.log('newNote', newNote)
     }
 
     return (
@@ -43,7 +35,7 @@ export function NoteItem({ note }) {
             className="note-item flexC align-center"
             style={note.style || { backgroundColor: '#fff', border: '1px solid #d1d1d1' }}>
             {
-                Object.keys(updatedNote.info).map(key => <p>prop element</p>)
+                Object.keys(updatedNote.info).map(key => processNoteProp(key, updatedNote.info[key]))
             }
         </div>
     )

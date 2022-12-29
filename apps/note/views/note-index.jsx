@@ -25,6 +25,7 @@ export function NoteIndex() {
     return <div className="notes-layout full" onClick={(ev) => {
         if (noteEditorRef.current && !noteEditorRef.current.contains(ev.target)) {
             setIsEditorExpanded(false);
+
         }
     }}>
         <NoteEditor

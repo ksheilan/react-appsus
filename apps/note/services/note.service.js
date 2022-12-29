@@ -8,7 +8,8 @@ export const noteService = {
     get,
     remove,
     save,
-    getEditorForm
+    getEditorForm,
+    createEmptyNote
 }
 
 // CREATE
@@ -34,17 +35,6 @@ function _createNotes() {
                 style: {
                     backgroundColor: "red"
                 }
-            },
-            {
-                id: "n103",
-                type: "note-todos",
-                info: {
-                    label: "Get my stuff together",
-                    todos: [
-                        { txt: "Driving liscence", doneAt: null },
-                        { txt: "Coding power", doneAt: 187111111 }
-                    ]
-                }
             }
         ]
 
@@ -53,6 +43,12 @@ function _createNotes() {
 
 }
 
+function createEmptyNote(){
+    return {
+        type: '',
+        isPiined: false
+    }
+}
 // READ
 function query() {
     return storageService.query(NOTE_KEY)
