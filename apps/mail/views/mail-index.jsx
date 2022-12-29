@@ -1,4 +1,4 @@
-const { Link, useNavigate } = ReactRouterDOM
+const { Link, useNavigate, useParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
 
@@ -8,20 +8,33 @@ import { MailList } from '../cmps/mail-list.jsx'
 import { MailFilter } from '../cmps/mail-filter.jsx'
 
 export function MailIndex() {
-    const [mails, setEmails] = useState([])
-    const [filterBy, setFilterBy] = useState({from: '', isRead: ''})
+    const [mails, setMails] = useState([])
+    const [filterBy, setFilterBy] = useState({ from: '', isRead: '' })
     const navigate = useNavigate()
+    const params = useParams()
+    console.log(params)
 
     useEffect(() => {
+        if (params.sent) {
+            setFilterBySent()
+        }
+        else if (params.wereRead) {
+            setFilterByOpen()
+        }
+        console.log('hi from useEffect')
+
+    }, [params])
+
+    useEffect(() => {
+
         loadEmails()
-    }, [filterBy])
+    }, [params, filterBy])
 
     function loadEmails() {
-        MailServices.query(filterBy).then(setEmails)
+        MailServices.query(filterBy).then(setMails)
     }
 
     function onSetFilterBy(filterByFilter) {
-        console.log('from index')
         setFilterBy(filterByFilter)
     }
 
@@ -29,8 +42,20 @@ export function MailIndex() {
         MailServices.remove(mailId)
             .then(() => {
                 const updatedMails = mails.filter(mail => mail.id !== mailId)
-                setEmails(updatedMails)
+                setMails(updatedMails)
             })
+    }
+
+    function setFilterBySent() {
+        setFilterBy((prevFilter) => {
+            return { ...prevFilter, from: prevFilter.from ? '' : 'user@appsus.com' }
+        })
+    }
+
+    function setFilterByOpen() {
+        setFilterBy((prevFilter) => {
+            return { ...prevFilter, isRead: true }
+        })
     }
 
     function onMoveToPreview(mailId) {
@@ -38,16 +63,28 @@ export function MailIndex() {
             .then((mail) => {
                 mail.isRead = true
                 MailServices.save(mail)
-                navigate(`/mail/${mailId}`)
+                navigate(`/${mailId}`)
             })
+    }
+
+    function onReadMail(mailId) {
+        MailServices.get(mailId)
+            .then((mail) => {
+                mail.isRead = true
+                MailServices.save(mail).then(() => {
+                    loadEmails()
+                })
+
+            })
+
     }
 
 
     return <section className="mail-index full">
-        <MailFilter onSetFilterBy={onSetFilterBy}/>
+        <MailFilter onSetFilterBy={onSetFilterBy} />
         <section className="mail-content full">
-            <MailFolderList />
-            <MailList onMoveToPreview={onMoveToPreview} onRemoveMail={onRemoveMail} mails={mails} />
+            <MailFolderList setFilterByOpen={setFilterByOpen} setFilterBySent={setFilterBySent} />
+            <MailList onMoveToPreview={onMoveToPreview} onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
         </section>
     </section>
 }

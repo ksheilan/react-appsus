@@ -1,14 +1,16 @@
 .mail-info {
     flex-direction: column;
     flex-grow: 1;
-
+    align-items: center;
+    min-width: 350px;
+    border: 0.5px solid var(--email-color);
 }
 
 .mail-info-head {
     justify-content: space-between;
 }
 
-.mail-info-head button {
+.mail-info button {
     background: none;
     border: none;
     cursor: pointer;

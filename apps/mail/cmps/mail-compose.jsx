@@ -2,6 +2,7 @@ const { useState, useEffect } = React
 const { useNavigate, Link } = ReactRouterDOM
 
 import { MailServices } from '../services/mail.service.js'
+import { MailFolderList } from './mail-folder-list.jsx'
 
 export function EmailCompose() {
     const [sentMail, setSentMail] = useState(MailServices.getEmptyMail())
@@ -22,7 +23,9 @@ export function EmailCompose() {
 
     }
 
-    return <section>
+    return <section className="flex full">
+        <MailFolderList />
+        <div className="mail-compose-area flexC">
         <div className="flex">
             <h2>new mail</h2>
             <Link to={'/mail'}><button>x</button></Link>
@@ -31,10 +34,11 @@ export function EmailCompose() {
         <form action="" onSubmit={onSaveMail} className="flexC">
             <input type="text" onChange={handleChange} name="to" value={sentMail.to} placeholder="to:" />
             <input type="text" placeholder="subject:" onChange={handleChange} name="subject" value={sentMail.subject} />
-            <textarea id="body" name="body" onChange={handleChange} rows="30" />
+            <textarea id="body" name="body" onChange={handleChange} rows="25" />
 
 
             <button>sent</button>
         </form>
+        </div>
     </section>
 }

@@ -1,15 +1,7 @@
-const { useEffect, useState } = React
-
-
 import { LongTxt } from './long-txt.jsx'
 import { MailServices } from '../services/mail.service.js'
 
-export function MailPreview({ mail, onMoveToPreview, onRemoveMail }) {
-
-
-    function onReadMail(mailId) {
-        MailServices.get(mailId).then(mail.isRead = !mail.isRead).then(MailServices.save(mail))
-    }
+export function MailPreview({ mail, onMoveToPreview, onReadMail, onRemoveMail }) {
 
     return <div key={mail.id} className="email flex">
         <input type="checkbox" onChange={() => onReadMail(mail.id)} checked={mail.isRead} />

@@ -1,29 +1,47 @@
-.mail-folder-list {
-    position: absolute;
-    flex-direction: row;
-    bottom: 0px;
-    min-width: 100vw;
-    background-color: aquamarine;
-    align-items: center;
-    justify-content: space-around;
-    height: fit-content;
+@media(max-width:650px) {
+    .mail-folder-list {
+        position: fixed;
+        flex-direction: row;
+        bottom: 0px;
+        min-width: 100vw;
+        background-color: #d4dff5;
+        align-items: center;
+        justify-content: space-around;
+        height: fit-content;
+    }
 
+
+    .mail-folder-list .active {
+        position: relative;
+        bottom: 15px;
+        border-radius: 25px;
+        background-color: rgba(240, 248, 255, 0.705);
+    }
 }
 
 @media(min-width:650px) {
     .mail-folder-list {
-        position: static;
         flex-direction: column;
         bottom: 0;
-        min-height: 90.3vh;
         min-width: fit-content;
+        background-color: #d4dff5;
+        align-items: center;
+        justify-content: space-around;
+        min-height: 100%;
+
+    }
+
+    .mail-folder-list .active {
+        left: 15px;
+        position: relative;
+        border-radius: 25px;
+        background-color: rgba(240, 248, 255, 0.705);
     }
 }
 
-
-
 .mail-folder-list a {
     padding: 0.7em;
+    cursor: pointer;
 }
 
 .fa-light .fa-pencil::before {
@@ -56,4 +74,8 @@
 
 .fa-regular .fa-trash-can::before {
     content: "\f2ed";
+}
+
+.fa-light .fa-inbox::before {
+    content: "\f01c";
 }
