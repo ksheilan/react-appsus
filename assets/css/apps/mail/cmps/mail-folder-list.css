@@ -1,11 +1,12 @@
 .mail-folder-list {
-    position: fixed;
+    position: absolute;
     flex-direction: row;
-    bottom: 10px;
+    bottom: 0px;
     min-width: 100vw;
     background-color: aquamarine;
     align-items: center;
     justify-content: space-around;
+    height: fit-content;
 
 }
 

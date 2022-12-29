@@ -1,52 +1,27 @@
-const { useState, useEffect } = React
-const { Link, useNavigate } = ReactRouterDOM
+const { useEffect, useState } = React
+
+
+import { LongTxt } from './long-txt.jsx'
 import { MailServices } from '../services/mail.service.js'
 
-export function MailPreview() {
-    const navigate = useNavigate()
-    const [mails, setEmails] = useState([])
+export function MailPreview({ mail, onMoveToPreview, onRemoveMail }) {
 
-    useEffect(() => {
-        loadEmails()
-    }, [])
 
-    function loadEmails() {
-        MailServices.query().then(setEmails)
+    function onReadMail(mailId) {
+        MailServices.get(mailId).then(mail.isRead = !mail.isRead).then(MailServices.save(mail))
     }
 
+    return <div key={mail.id} className="email flex">
+        <input type="checkbox" onChange={() => onReadMail(mail.id)} checked={mail.isRead} />
+        <button className="fa-regular fa-trash-can" onClick={() => onRemoveMail(mail.id)}></button>
+        <button className="fa-regular fa-star"></button>
 
-    function onRemoveMail(mailId) {
-        MailServices.remove(mailId)
-            .then(() => {
-                const updatedMails = mails.filter(mail => mail.id !== mailId)
-                setEmails(updatedMails)
-            })
-    }
+        <div onClick={() => onMoveToPreview(mail.id)} className="mail-info-index flex">
+            <h4>{mail.from}</h4>
+            <LongTxt txt={mail.body} length={65} />
+            <p>{MailServices.getHumenDate(mail.sentAt)}</p>
 
-    function onMoveToPreview(mailId) {
-        MailServices.get(mailId)
-            .then((mail) => {
-                mail.isRead = true
-                MailServices.save(mail)
-                navigate(`/mail/${mailId}`)
-            })
-    }
-
-    return <section className="emails-main-area">
-        {mails.map(email => {
-            return <div key={email.id} className="email flex">
-                {email.isRead && <input type="checkbox" defaultChecked />}
-                {!email.isRead && <input type="checkbox" />}
-                <button className="fa-regular fa-trash-can" onClick={() => onRemoveMail(email.id)}></button>
-
-                <div onClick={() => onMoveToPreview(email.id)} className="email flex">
-                    <button className="fa-regular fa-star"></button>
-                    <h4>{email.to}</h4>
-                    <p>{email.body}</p>
-                    <p>{MailServices.getHumenDate(email.sentAt)}</p>
-
-                </div>
-            </div>
-        })}
-    </section>
+        </div>
+    </div>
 }
+

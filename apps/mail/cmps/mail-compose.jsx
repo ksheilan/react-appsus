@@ -1,12 +1,12 @@
 const { useState, useEffect } = React
-const { useParams, useNavigate, Link } = ReactRouterDOM
+const { useNavigate, Link } = ReactRouterDOM
 
 import { MailServices } from '../services/mail.service.js'
 
 export function EmailCompose() {
     const [sentMail, setSentMail] = useState(MailServices.getEmptyMail())
 
-
+    const navigate = useNavigate()
 
     function handleChange({ target }) {
         let { value, type, name: field } = target
@@ -16,6 +16,10 @@ export function EmailCompose() {
 
     function onSaveMail(ev) {
         ev.preventDefault()
+        MailServices.save(sentMail).then((sentMail) => {
+            navigate('/mail')
+        })
+
     }
 
     return <section>
@@ -25,9 +29,9 @@ export function EmailCompose() {
 
         </div>
         <form action="" onSubmit={onSaveMail} className="flexC">
-            <input type="text" onChange={handleChange} placeholder="to:" />
-            <input type="text" placeholder="subject:" />
-            <textarea id="" name="" rows="30" />
+            <input type="text" onChange={handleChange} name="to" value={sentMail.to} placeholder="to:" />
+            <input type="text" placeholder="subject:" onChange={handleChange} name="subject" value={sentMail.subject} />
+            <textarea id="body" name="body" onChange={handleChange} rows="30" />
 
 
             <button>sent</button>

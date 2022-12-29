@@ -1,12 +1,16 @@
+
 import { MailPreview } from './mail-preview.jsx'
 
-// console.log(Date.now())
-export function MailList({ emails }) {
+export function MailList({ mails, onMoveToPreview, onRemoveMail }) {
 
-    return <section className="email-list">
-        <MailPreview emails={emails} />
+    return <section className="emails-main-area full">
+        {mails.map(mail => {
+            return <MailPreview key={mail.id} mail={mail} onMoveToPreview={onMoveToPreview} onRemoveMail={onRemoveMail} />
+        })}
+
     </section>
-
 }
+
+
 
 

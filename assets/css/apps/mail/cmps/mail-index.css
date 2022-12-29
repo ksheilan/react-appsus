@@ -4,5 +4,7 @@
 }
 
 .emails-main-area {
-    background-color: bisque;
+    background-color: var(--email-bg-color);
+    color: var(--email-color);
+    flex-grow: 1;
 }
