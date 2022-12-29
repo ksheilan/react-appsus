@@ -8,8 +8,8 @@ import { MailList } from '../cmps/mail-list.jsx'
 import { MailFilter } from '../cmps/mail-filter.jsx'
 
 export function MailIndex() {
-    const [mails, setEmails] = useState([])
-    const [filterBy, setFilterBy] = useState({from: '', isRead: ''})
+    const [mails, setMails] = useState([])
+    const [filterBy, setFilterBy] = useState({ from: '', isRead: false })
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -17,11 +17,10 @@ export function MailIndex() {
     }, [filterBy])
 
     function loadEmails() {
-        MailServices.query(filterBy).then(setEmails)
+        MailServices.query(filterBy).then(setMails)
     }
 
     function onSetFilterBy(filterByFilter) {
-        console.log('from index')
         setFilterBy(filterByFilter)
     }
 
@@ -29,7 +28,7 @@ export function MailIndex() {
         MailServices.remove(mailId)
             .then(() => {
                 const updatedMails = mails.filter(mail => mail.id !== mailId)
-                setEmails(updatedMails)
+                setMails(updatedMails)
             })
     }
 
@@ -42,12 +41,24 @@ export function MailIndex() {
             })
     }
 
+    function onReadMail(mailId) {
+        console.log('.')
+        // MailServices.get(mailId)
+        //     .then((mail) => {
+        //         mail.isRead = true
+        //         MailServices.save(mail)
+        //         const updatedMails = mails.filter(mail => mail.isRead === false)
+        //         return setMails(updatedMails)
+        //     })
+
+    }
+
 
     return <section className="mail-index full">
-        <MailFilter onSetFilterBy={onSetFilterBy}/>
+        <MailFilter onSetFilterBy={onSetFilterBy} />
         <section className="mail-content full">
             <MailFolderList />
-            <MailList onMoveToPreview={onMoveToPreview} onRemoveMail={onRemoveMail} mails={mails} />
+            <MailList onMoveToPreview={onMoveToPreview} onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
         </section>
     </section>
 }
