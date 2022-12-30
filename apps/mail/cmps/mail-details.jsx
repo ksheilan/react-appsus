@@ -50,13 +50,19 @@ export function MailDetails() {
     }
 
 
+    function onGoToEditMail() {
+        navigate(`/mail/compose/${mail.id}`)
+
+    }
+
+
     if (!mail) return <h2>loading</h2>
     return <section className="mail-details full">
         <section className="mail-content">
             <MailFolderList />
             <div className="mail-info flex">
                 <div className="btn-box-details">
-                    <button className="fa fa-thin fa-pencil"><Link to={`/mail/compose/${mail.id}`} title="Edit mail"></Link></button>
+                    <button onClick={onGoToEditMail} className="fa fa-thin fa-pencil"></button>
                     <button onClick={() => onRemoveMail(mail.id)} className="fa-regular fa-trash-can" title="Delete"></button>
                     <MailStarSwitch mail={mail} onStarredMail={onStarredMail} />
                     <button className="fa-regular fa-envelope-open" onClick={onGoBack} title="Go Back"></button>
@@ -67,7 +73,7 @@ export function MailDetails() {
                 <div className="mail-info-head flexC">
                     <h4>At: {MailServices.getHumenDate(mail.sentAt)}</h4>
                 </div>
-                <p>{mail.body} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi sint, laudantium ad nobis quae iusto pariatur accusamus? Exercitationem, mollitia molestias autem, eum ratione quae, similique omnis ut alias beatae placeat.</p>
+                <p>{mail.body}</p>
                 <small>340 S Lemon Ave #5772, Walnut, California, 91789, United States</small>
 
 

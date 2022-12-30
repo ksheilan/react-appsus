@@ -130,7 +130,7 @@ export function MailIndex() {
     }
 
 
-    return <section className="mail-index full">
+    return <div className="mail-index full">
         <section className="flex">
             <MailFilter onSetFilterBy={onSetFilterBy} />
             <MailSorter onSetSortBy={onSetSortBy} />
@@ -144,6 +144,6 @@ export function MailIndex() {
                 onReadMail={onReadMail}
                 onStarredMail={onStarredMail} />
         </section>
-    </section>
+    </div>
 }
 
