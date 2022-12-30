@@ -41,13 +41,13 @@ export function MailDetails() {
                     <button className="fa-regular fa-envelope-open" onClick={onGoBack} title="Go Back"></button>
 
                 </div>
-                <h1>{mail.subject}</h1>
-                <div className="mail-info-head flex">
+                    <h1>{mail.subject}</h1>
                     <h2>From: {mail.from}</h2>
-
+                <div className="mail-info-head flexC">
+                    <h4>At: {MailServices.getHumenDate(mail.sentAt)}</h4>
                 </div>
-                <p>{mail.body}</p>
-
+                <p>{mail.body} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi sint, laudantium ad nobis quae iusto pariatur accusamus? Exercitationem, mollitia molestias autem, eum ratione quae, similique omnis ut alias beatae placeat.</p>
+                <small>340 S Lemon Ave #5772, Walnut, California, 91789, United States</small>
 
 
 

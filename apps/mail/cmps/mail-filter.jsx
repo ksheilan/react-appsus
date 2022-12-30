@@ -17,14 +17,14 @@ export function MailFilter({ onSetFilterBy }) {
         setFilterBy((prevFilter) => {
             return { ...prevFilter, [field]: value }
         })
-       
+
     }
 
     function onClickOnCheckBox({ target }) {
         setFilterBy((prevFilter) => {
             return { ...prevFilter, isRead: target.checked }
         })
-       
+
     }
 
     function onload() {

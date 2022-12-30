@@ -33,8 +33,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: loggedinUser.email,
                 from: 'Harry potter',
-                isDelete: false
-
+                isDelete: false,
+                isStarred: false,
             },
             {
                 id: 'e102',
@@ -44,9 +44,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: loggedinUser.email,
                 from: 'Harry potter',
-                isDelete: false
-
-
+                isDelete: false,
+                isStarred: false,
             },
             {
                 id: 'e103',
@@ -56,9 +55,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from: loggedinUser.email,
-                isDelete: false
-
-
+                isDelete: false,
+                isStarred: false,
             },
             {
                 id: 'e104',
@@ -68,9 +66,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from: 'Harry potter',
-                isDelete: false
-
-
+                isDelete: false,
+                isStarred: false,
             },
             {
                 id: 'e105',
@@ -80,9 +77,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from: 'Harry potter',
-                isDelete: false
-
-
+                isDelete: false,
+                isStarred: false,
             },
             {
                 id: 'e106',
@@ -92,9 +88,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from: 'Harry potter',
-                isDelete: true
-
-
+                isDelete: true,
+                isStarred: false,
             },
             {
                 id: 'e107',
@@ -104,9 +99,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from: 'Harry potter',
-                isDelete: false
-
-
+                isDelete: false,
+                isStarred: false,
             },
             {
                 id: 'e108',
@@ -116,9 +110,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from: loggedinUser.email,
-                isDelete: false
-
-
+                isDelete: false,
+                isStarred: false,
             },
             {
                 id: 'e109',
@@ -128,9 +121,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from: loggedinUser.email,
-                isDelete: false
-
-
+                isDelete: false,
+                isStarred: false,
             },
             {
                 id: 'e110',
@@ -140,9 +132,30 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 to: 'momo@momo.com',
                 from: loggedinUser.email,
-                isDelete: false
-
-
+                isDelete: false,
+                isStarred: false,
+            },
+            {
+                id: 'e111',
+                subject: 'Google Maps Platform',
+                body: 'Would love to catch up sometimes',
+                isRead: false,
+                sentAt: 1551133930594,
+                to: 'momo@momo.com',
+                from: loggedinUser.email,
+                isDelete: false,
+                isStarred: true,
+            },
+            {
+                id: 'e112',
+                subject: 'לוח דרושים',
+                body: 'Would love to catch up sometimes',
+                isRead: false,
+                sentAt: 1551133930594,
+                to: 'momo@momo.com',
+                from: loggedinUser.email,
+                isDelete: false,
+                isStarred: true,
             },
         ]
         storageService.saveToStorage(EMAIL_STOARGE_KEY, emails)
@@ -152,7 +165,7 @@ function _createEmails() {
 }
 
 function getDefaultFilter() {
-    return { from: '', isRead: '', isDelete: '' }
+    return { from: '', isRead: '', isDelete: '', isStarred: '' }
 }
 
 function getEmptyMail() {
@@ -163,7 +176,8 @@ function getEmptyMail() {
         sentAt: new Date(),
         to: '',
         from: loggedinUser.email,
-        isDelete: false
+        isDelete: false,
+        isStarred: false,
     }
     return mail
 }
@@ -180,6 +194,9 @@ function query(filterBy = getDefaultFilter()) {
             }
             if (filterBy.isDelete === true) {
                 mails = mails.filter(mail => mail.isDelete === true)
+            }
+            if (filterBy.isStarred === true) {
+                mails = mails.filter(mail => mail.isStarred === true)
             }
             return mails
         })

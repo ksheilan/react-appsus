@@ -2,7 +2,7 @@
     .mail-folder-list {
         position: fixed;
         flex-direction: row;
-        bottom: 0px;
+        bottom: 0;
         min-width: 100vw;
         background-color: #d4dff5;
         align-items: center;
@@ -52,8 +52,10 @@
     content: "\f2b6";
 }
 
-.fa-regular .fa-star::before {
+.fas .iconYellow .fa-regular .fa-star::before {
     content: "\f005";
+    color: yellow;
+    background-color: yellow;
 }
 
 .fa-regular .fa-clock::before {

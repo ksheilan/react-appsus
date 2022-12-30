@@ -6,6 +6,16 @@
     border: 0.5px solid var(--email-color);
 }
 
+
+.mail-info p {
+    padding: 0 1em;
+}
+
+.mail-info small {
+    position: absolute;
+    bottom: 75px;
+}
+
 .mail-info-head {
     justify-content: space-between;
 }
@@ -24,4 +34,3 @@
     font-size: 50px;
     border-bottom: 1.2px solid rgba(0, 0, 0, 0.73);
 }
-

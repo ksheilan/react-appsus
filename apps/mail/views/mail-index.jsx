@@ -1,4 +1,4 @@
-const { Link, useNavigate, useParams } = ReactRouterDOM
+const { useNavigate, useParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
 
@@ -6,29 +6,31 @@ import { MailServices } from '../services/mail.service.js'
 import { MailFolderList } from '../cmps/mail-folder-list.jsx'
 import { MailList } from '../cmps/mail-list.jsx'
 import { MailFilter } from '../cmps/mail-filter.jsx'
+import { MailSorter } from '../cmps/mail-sorter.jsx'
 
 export function MailIndex() {
     const [mails, setMails] = useState([])
-    const [filterBy, setFilterBy] = useState({ from: '', isRead: '', isDelete: '' })
+    const [filterBy, setFilterBy] = useState({ from: '', isRead: '', isDelete: '', isStarred: '' })
+    // const [sortBy, setSortBy] = useState({ from: '', sentAt: new Date() })
     const navigate = useNavigate()
     const params = useParams()
-    console.log(params)
-
+    // console.log(params)
     useEffect(() => {
         if (params.sent) {
             setFilterBySent()
         }
         else if (params.wereRead) {
             setFilterByOpen()
-        } else if (params.delete) {
+        }
+        else if (params.delete) {
             setFilterByIsDelete()
         }
-        console.log('hi from useEffect')
-
+        else if (params.starred) {
+            setFilterByStarred()
+        }
     }, [])
 
     useEffect(() => {
-
         loadEmails()
     }, [filterBy])
 
@@ -38,16 +40,6 @@ export function MailIndex() {
 
     function onSetFilterBy(filterByFilter) {
         setFilterBy(filterByFilter)
-    }
-
-    function onRemoveMail(mailId) {
-        MailServices.get(mailId)
-            .then((mail) => {
-                mail.isDelete = true
-                MailServices.save(mail)
-                const updatedMails = mails.filter(mail => mail.id !== mailId)
-                setMails(updatedMails)
-            })
     }
 
     function setFilterBySent() {
@@ -62,11 +54,45 @@ export function MailIndex() {
         })
     }
 
-
     function setFilterByOpen() {
         setFilterBy((prevFilter) => {
             return { ...prevFilter, isRead: true }
         })
+    }
+
+    function setFilterByStarred() {
+        setFilterBy((prevFilter) => {
+            return { ...prevFilter, isStarred: true }
+        })
+    }
+
+    function onSetSortBy(sortBy) {
+        if (sortBy.sentAt) {
+            mails.sort((c1, c2) => (c1.sentAt - c2.sentAt) * sortBy.sentAt)
+        } else if (sortBy.from) {
+            mails.sort((c1, c2) => c1.from.localeCompare(c2.from) * sortBy.from)
+        }
+    }
+
+    function onStarredMail(mailId) {
+        MailServices.get(mailId)
+            .then((mail) => {
+                mail.isStarred = !mail.isStarred
+                MailServices.save(mail).then(() => {
+                    loadEmails()
+                })
+
+            })
+    }
+
+    function onRemoveMail(mailId) {
+        MailServices.get(mailId)
+            .then((mail) => {
+                mail.isDelete = true
+                MailServices.save(mail)
+                const updatedMails = mails.filter(mail => mail.id !== mailId)
+                setMails(updatedMails)
+            })
     }
 
     function onMoveToPreview(mailId) {
@@ -81,7 +107,7 @@ export function MailIndex() {
     function onReadMail(mailId) {
         MailServices.get(mailId)
             .then((mail) => {
-                mail.isRead = true
+                mail.isRead = !mail.isRead
                 MailServices.save(mail).then(() => {
                     loadEmails()
                 })
@@ -92,10 +118,18 @@ export function MailIndex() {
 
 
     return <section className="mail-index full">
-        <MailFilter onSetFilterBy={onSetFilterBy} />
-        <section className="mail-content full">
-            <MailFolderList setFilterByOpen={setFilterByOpen} setFilterBySent={setFilterBySent} />
-            <MailList onMoveToPreview={onMoveToPreview} onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
+        <section className="flex">
+            <MailFilter onSetFilterBy={onSetFilterBy} />
+            <MailSorter onSetSortBy={onSetSortBy} />
+        </section>
+        <section className="mail-content">
+            <MailFolderList />
+            <MailList
+                mails={mails}
+                onMoveToPreview={onMoveToPreview}
+                onRemoveMail={onRemoveMail}
+                onReadMail={onReadMail}
+                onStarredMail={onStarredMail} />
         </section>
     </section>
 }

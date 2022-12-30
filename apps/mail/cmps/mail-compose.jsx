@@ -26,9 +26,9 @@ export function EmailCompose() {
     return <section className="flex full">
         <MailFolderList />
         <div className="mail-compose-area flexC">
-        <div className="flex">
+        <div className="btn-box-mail-compose flex">
             <h2>new mail</h2>
-            <Link to={'/mail'}><button>x</button></Link>
+            <Link to={'/mail'}><button>Go Back</button></Link>
 
         </div>
         <form action="" onSubmit={onSaveMail} className="flexC">

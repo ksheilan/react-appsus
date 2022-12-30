@@ -6,7 +6,6 @@
 .email {
     align-items: center;
     padding-left: 0.5em;
-    min-width: 450px;
 }
 
 .mail-info-index {
@@ -26,5 +25,6 @@
     background: none;
     border: none;
     cursor: pointer;
+    align-self: center;
     /* background-color: black; */
 }
