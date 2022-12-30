@@ -12,6 +12,7 @@ import { EmailCompose } from "./apps/mail/cmps/mail-compose.jsx"
 import { MailDetails } from "./apps/mail/cmps/mail-details.jsx"
 import { MailSent } from "./apps/mail/views/mail-sent.jsx"
 import { MailWereRead } from "./apps/mail/views/mail-were-read.jsx"
+import { MailDelete } from "./apps/mail/views/mail-delete.jsx"
 
 
 export function App() {
@@ -27,6 +28,7 @@ export function App() {
                 <Route element={<MailDetails />} path="/:mailId" />
                 <Route element={<MailWereRead />} path="/mail/read/:wereRead" />
                 <Route element={<MailSent />} path="/mail/:sent" />
+                <Route element={<MailDelete />} path="/mail/delete/:delete" />
 
 
                 <Route path="/note" element={<NoteIndex />} />
