@@ -44,9 +44,6 @@
     cursor: pointer;
 }
 
-.fa-light .fa-pencil::before {
-    content: "\f303";
-}
 
 .fa-regular .fa-envelope-open::before {
     content: "\f2b6";
@@ -54,8 +51,6 @@
 
 .fas .iconYellow .fa-regular .fa-star::before {
     content: "\f005";
-    color: yellow;
-    background-color: yellow;
 }
 
 .fa-regular .fa-clock::before {
@@ -81,3 +76,8 @@
 .fa-light .fa-inbox::before {
     content: "\f01c";
 }
+
+.fa-sharp .fa-solid .fa-star::after {
+    content: '\f005';
+}
+

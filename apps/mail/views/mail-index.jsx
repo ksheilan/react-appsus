@@ -1,20 +1,19 @@
 const { useNavigate, useParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
-
-import { MailServices } from '../services/mail.service.js'
 import { MailFolderList } from '../cmps/mail-folder-list.jsx'
 import { MailList } from '../cmps/mail-list.jsx'
 import { MailFilter } from '../cmps/mail-filter.jsx'
 import { MailSorter } from '../cmps/mail-sorter.jsx'
 
+import { MailServices } from '../services/mail.service.js'
+
 export function MailIndex() {
     const [mails, setMails] = useState([])
-    const [filterBy, setFilterBy] = useState({ from: '', isRead: '', isDelete: '', isStarred: '' })
+    const [filterBy, setFilterBy] = useState({ from: '', isRead: '', isDelete: false, isStarred: '' })
     // const [sortBy, setSortBy] = useState({ from: '', sentAt: new Date() })
     const navigate = useNavigate()
     const params = useParams()
-    // console.log(params)
     useEffect(() => {
         if (params.sent) {
             setFilterBySent()
@@ -78,20 +77,25 @@ export function MailIndex() {
         MailServices.get(mailId)
             .then((mail) => {
                 mail.isStarred = !mail.isStarred
-                MailServices.save(mail).then(() => {
-                    loadEmails()
-                })
-
+                MailServices.save(mail).then(() => {loadEmails()})
             })
     }
 
     function onRemoveMail(mailId) {
         MailServices.get(mailId)
             .then((mail) => {
-                mail.isDelete = true
-                MailServices.save(mail)
-                const updatedMails = mails.filter(mail => mail.id !== mailId)
-                setMails(updatedMails)
+                if (!mail.isDelete) {
+                    mail.isDelete = true
+                    MailServices.save(mail)
+                    const updatedMails = mails.filter(mail => mail.id !== mailId)
+                    setMails(updatedMails)
+
+                } else {
+                    MailServices.remove(mailId).then(() => {
+                        const updatedMails = mails.filter(mail => mail.id !== mailId)
+                        setMails(updatedMails)
+                    })
+                }
             })
     }
 
@@ -108,12 +112,8 @@ export function MailIndex() {
         MailServices.get(mailId)
             .then((mail) => {
                 mail.isRead = !mail.isRead
-                MailServices.save(mail).then(() => {
-                    loadEmails()
-                })
-
+                MailServices.save(mail).then(() => {loadEmails()})
             })
-
     }
 
 

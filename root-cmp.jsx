@@ -25,8 +25,12 @@ export function App() {
                 <Route path="/about" element={<About />} />
 
                 <Route element={<MailIndex />} path="/mail" />
+                {/* edit and create */}
                 <Route element={<EmailCompose />} path="/mail/compose" />
+                <Route element={<EmailCompose />} path="/mail/compose/:mailid" />
+                {/* details */}
                 <Route element={<MailDetails />} path="/:mailId" />
+                {/* filters */}
                 <Route element={<MailWereRead />} path="/mail/read/:wereRead" />
                 <Route element={<MailSent />} path="/mail/:sent" />
                 <Route element={<MailDelete />} path="/mail/delete/:delete" />

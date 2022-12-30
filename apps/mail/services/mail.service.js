@@ -165,7 +165,7 @@ function _createEmails() {
 }
 
 function getDefaultFilter() {
-    return { from: '', isRead: '', isDelete: '', isStarred: '' }
+    return { from: '', isRead: '', isDelete: false, isStarred: '' }
 }
 
 function getEmptyMail() {
@@ -185,6 +185,9 @@ function getEmptyMail() {
 function query(filterBy = getDefaultFilter()) {
     return storageService.query(EMAIL_STOARGE_KEY)
         .then(mails => {
+            if(filterBy.isDelete === false) {
+                mails = mails.filter(mail => mail.isDelete === false)
+            }
             if (filterBy.from) {
                 const regex = new RegExp(filterBy.from, 'i')
                 mails = mails.filter(mail => regex.test(mail.from))

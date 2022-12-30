@@ -13,18 +13,17 @@
     gap: 8px;
 }
 
+
 .mail-info-index:hover {
    font-weight: bold;
 }
 
-.email input {
-    width: 15px;
-}
+
 
 .email button {
     background: none;
     border: none;
     cursor: pointer;
     align-self: center;
-    /* background-color: black; */
+
 }

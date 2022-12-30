@@ -25,10 +25,29 @@ export function MailDetails() {
     }
 
     function onRemoveMail(mailId) {
-        MailServices.remove(mailId).then(() => {
-            onGoBack()
-        })
+        MailServices.get(mailId)
+            .then((mail) => {
+                if (!mail.isDelete) {
+                    mail.isDelete = true
+                    MailServices.save(mail).then(() => onGoBack())
+
+                } else {
+                    MailServices.remove(mailId).then(() => onGoBack())
+                }
+            })
     }
+
+    function onStarredMail(mailId) {
+        MailServices.get(mailId)
+            .then((mail) => {
+                mail.isStarred = !mail.isStarred
+                MailServices.save(mail).then(() => {
+                    loadMail()
+                })
+
+            })
+    }
+
 
     if (!mail) return <h2>loading</h2>
     return <section className="mail-details full">
@@ -36,13 +55,15 @@ export function MailDetails() {
             <MailFolderList />
             <div className="mail-info flex">
                 <div className="btn-box-details">
+                    <Link to={`/mail/compose/${mail.id}`} className="fa fa-thin fa-pencil" title="Edit mail"></Link>
+
                     <button onClick={() => onRemoveMail(mail.id)} className="fa-regular fa-trash-can" title="Delete"></button>
-                    <button className="fa-regular fa-star"></button>
+                    {mail.isStarred ? <button onClick={() => onStarredMail(mail.id)}>⭐</button> : <button onClick={() => onStarredMail(mail.id)} className="star fa-regular fa-star"></button>}
                     <button className="fa-regular fa-envelope-open" onClick={onGoBack} title="Go Back"></button>
 
                 </div>
-                    <h1>{mail.subject}</h1>
-                    <h2>From: {mail.from}</h2>
+                <h1>{mail.subject}</h1>
+                <h2>From: {mail.from}</h2>
                 <div className="mail-info-head flexC">
                     <h4>At: {MailServices.getHumenDate(mail.sentAt)}</h4>
                 </div>
