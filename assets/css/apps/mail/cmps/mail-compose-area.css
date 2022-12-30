@@ -1,7 +1,7 @@
 .mail-compose-area {
     align-items: center;
     flex-grow: 1;
-    min-height: 91vh;
+    min-height: 93vh;
     background-color: var(--email-bg-color);
 }
 
@@ -22,7 +22,6 @@
 .btn-box-mail-compose {
     align-items: center;
 }
-
 
 @media(min-width:650px) {
     .mail-compose-area form {

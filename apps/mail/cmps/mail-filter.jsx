@@ -36,13 +36,16 @@ export function MailFilter({ onSetFilterBy }) {
     }
 
     return <section className="mail-filter flex">
-        <input type="text"
-            onChange={handleChange}
-            name="from"
-            id="from"
-            placeholder="Search by name" />
+        <div className="">
+            <label htmlFor="from">Search: </label>
+            <input type="text"
+                onChange={handleChange}
+                name="from"
+                id="from"
+                placeholder="Search by name" />
 
-        <input type="checkbox" name="isRead" onChange={(event) => onClickOnCheckBox(event)} />
+            <input type="checkbox" name="isRead" onChange={(event) => onClickOnCheckBox(event)} />
+        </div>
 
         <h2>unread emails: {unRead.length}</h2>
     </section>

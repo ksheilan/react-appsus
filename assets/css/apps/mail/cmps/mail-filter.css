@@ -1,0 +1,6 @@
+.mail-filter {
+   flex-grow: 1;
+   justify-content: space-between;
+   background-color: var(--email-bg-color);
+   align-items: center;
+}

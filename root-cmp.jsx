@@ -37,6 +37,7 @@ export function App() {
                 <Route element={<MailSent />} path="/mail/:sent" />
                 <Route element={<MailDelete />} path="/mail/delete/:delete" />
                 <Route element={<MailStarred />} path="/mail/starred/:starred" />
+                <Route element={<MailStarred />} path="/mail/draft/:draft" />
 
 
                 <Route path="/note" element={<NoteIndex />} />

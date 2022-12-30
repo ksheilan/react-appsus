@@ -27,7 +27,6 @@
         background-color: #d4dff5;
         align-items: center;
         justify-content: space-around;
-        min-height: 88vh;
     }
 
     .mail-folder-list .active {
