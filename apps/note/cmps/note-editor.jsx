@@ -10,7 +10,7 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
     const [newNote, setNewNote] = useState(noteService.createEmptyNote())
     useEffect(() => {
         loadEditorForm()
-        if(!isEditorExpanded && newNote.info){
+        if (!isEditorExpanded && newNote.info) {
             noteService.save(newNote)
         }
     }, [isEditorExpanded])
@@ -21,8 +21,8 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
 
     function onChangeVal(input, val) {
         const answersToSave = { ...answersMap }
-        const inputLabel = input.info.label
-        const newNoteInfo = newNote.info
+        const isTitle = input.info.label === 'editorTitle'
+        const newNoteInfo = { ...newNote.info }
         answersToSave[input.id] = val
 
         setAnswersMap(answersToSave)
@@ -30,11 +30,14 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
             ...newNote,
             info: {
                 ...newNoteInfo,
-                [inputLabel === 'editorTitle' ? 'title' : 'txt']: val
+                txt: val
             }
         })
     }
 
+    function onChangeTitle(val){
+        setNewNote({...newNote, title: val})
+    }
     function processInput(input) {
         switch (input.type) {
             case 'textBox':
@@ -43,7 +46,7 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
                     val={answersMap[input.id] || ''}
                     placeholder="Title"
                     onChangeVal={(val) => {
-                        onChangeVal(input, val)
+                        onChangeTitle(val)
                     }}
                 />
             case 'textArea':
