@@ -1,4 +1,6 @@
 import { LongTxt } from './long-txt.jsx'
+import {MailStarSwitch} from './mail-star-switch-btn.jsx'
+
 import { MailServices } from '../services/mail.service.js'
 
 export function MailPreview({ mail, onMoveToPreview, onReadMail, onRemoveMail, onStarredMail }) {
@@ -7,7 +9,7 @@ export function MailPreview({ mail, onMoveToPreview, onReadMail, onRemoveMail, o
         <div className="btn-box-mail-control flex">
             <input type="checkbox" onChange={() => onReadMail(mail.id)} checked={mail.isRead} />
             <button className="btn-remove-mail-control fa-regular fa-trash-can" onClick={() => onRemoveMail(mail.id)}></button>
-            {mail.isStarred ? <button className="fa-sharp fa-solid fa-star"onClick={() => onStarredMail(mail.id)}></button> : <button onClick={() => onStarredMail(mail.id)} className="star fa-regular fa-star"></button>}
+            <MailStarSwitch mail={mail} onStarredMail={onStarredMail} />
         </div>
 
         <div onClick={() => onMoveToPreview(mail.id)} className="mail-info-index flex">

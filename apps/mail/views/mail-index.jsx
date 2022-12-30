@@ -7,34 +7,47 @@ import { MailFilter } from '../cmps/mail-filter.jsx'
 import { MailSorter } from '../cmps/mail-sorter.jsx'
 
 import { MailServices } from '../services/mail.service.js'
+import { showSuccessMsg } from '../../../services/event-bus.service.js'
+
 
 export function MailIndex() {
     const [mails, setMails] = useState([])
     const [filterBy, setFilterBy] = useState({ from: '', isRead: '', isDelete: false, isStarred: '' })
-    // const [sortBy, setSortBy] = useState({ from: '', sentAt: new Date() })
+    const [sortBy, setSortBy] = useState({ from: '', sentAt: MailServices.getHumenDate(new Date()) })
+
     const navigate = useNavigate()
     const params = useParams()
+
     useEffect(() => {
-        if (params.sent) {
-            setFilterBySent()
-        }
-        else if (params.wereRead) {
-            setFilterByOpen()
-        }
-        else if (params.delete) {
-            setFilterByIsDelete()
-        }
-        else if (params.starred) {
-            setFilterByStarred()
-        }
+        setFilterBySwitch()
     }, [])
 
     useEffect(() => {
+        onSetSortBy(sortBy)
         loadEmails()
     }, [filterBy])
 
     function loadEmails() {
         MailServices.query(filterBy).then(setMails)
+    }
+
+    function setFilterBySwitch() {
+        if (params.sent) {
+            setFilterBySent()
+            showSuccessMsg('Emails sent')
+        }
+        else if (params.wereRead) {
+            setFilterByOpen()
+            showSuccessMsg('You allready read them')
+        }
+        else if (params.delete) {
+            setFilterByIsDelete()
+            showSuccessMsg('here when you click delete the email will rly delete')
+        }
+        else if (params.starred) {
+            setFilterByStarred()
+            showSuccessMsg('the starred ones')
+        }
     }
 
     function onSetFilterBy(filterByFilter) {
@@ -77,7 +90,7 @@ export function MailIndex() {
         MailServices.get(mailId)
             .then((mail) => {
                 mail.isStarred = !mail.isStarred
-                MailServices.save(mail).then(() => {loadEmails()})
+                MailServices.save(mail).then(() => { loadEmails() })
             })
     }
 
@@ -112,7 +125,7 @@ export function MailIndex() {
         MailServices.get(mailId)
             .then((mail) => {
                 mail.isRead = !mail.isRead
-                MailServices.save(mail).then(() => {loadEmails()})
+                MailServices.save(mail).then(() => { loadEmails() })
             })
     }
 

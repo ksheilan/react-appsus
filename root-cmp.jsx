@@ -7,9 +7,11 @@ import { Home } from "./views/home.jsx"
 
 import { NoteIndex } from "./apps/note/views/note-index.jsx"
 
-import { MailIndex } from "./apps/mail/views/mail-index.jsx"
+import { UserMsg } from "./cmps/user-msg.jsx"
 import { EmailCompose } from "./apps/mail/cmps/mail-compose.jsx"
 import { MailDetails } from "./apps/mail/cmps/mail-details.jsx"
+// views
+import { MailIndex } from "./apps/mail/views/mail-index.jsx"
 import { MailSent } from "./apps/mail/views/mail-sent.jsx"
 import { MailWereRead } from "./apps/mail/views/mail-were-read.jsx"
 import { MailDelete } from "./apps/mail/views/mail-delete.jsx"
@@ -39,6 +41,8 @@ export function App() {
 
                 <Route path="/note" element={<NoteIndex />} />
             </Routes>
+
+            <UserMsg />
         </section>
     </Router>
 }

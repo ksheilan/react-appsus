@@ -2,6 +2,7 @@ const { useParams, useNavigate, Link } = ReactRouterDOM
 const { useState, useEffect } = React
 
 import { MailFolderList } from "./mail-folder-list.jsx"
+import { MailStarSwitch } from "./mail-star-switch-btn.jsx"
 
 import { MailServices } from "../services/mail.service.js"
 
@@ -55,10 +56,9 @@ export function MailDetails() {
             <MailFolderList />
             <div className="mail-info flex">
                 <div className="btn-box-details">
-                    <Link to={`/mail/compose/${mail.id}`} className="fa fa-thin fa-pencil" title="Edit mail"></Link>
-
+                    <button className="fa fa-thin fa-pencil"><Link to={`/mail/compose/${mail.id}`} title="Edit mail"></Link></button>
                     <button onClick={() => onRemoveMail(mail.id)} className="fa-regular fa-trash-can" title="Delete"></button>
-                    {mail.isStarred ? <button onClick={() => onStarredMail(mail.id)}>⭐</button> : <button onClick={() => onStarredMail(mail.id)} className="star fa-regular fa-star"></button>}
+                    <MailStarSwitch mail={mail} onStarredMail={onStarredMail} />
                     <button className="fa-regular fa-envelope-open" onClick={onGoBack} title="Go Back"></button>
 
                 </div>
