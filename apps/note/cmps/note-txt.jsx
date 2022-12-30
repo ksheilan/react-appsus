@@ -10,6 +10,8 @@ export function NoteTxt({ val }) {
                 else return <div key={utilService.makeId()}><NoteVideo /></div>
             })
         }
+
+        return textContent[0]
     }
     return <div className="text">
         {processText()}
