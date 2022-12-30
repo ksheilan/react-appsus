@@ -28,9 +28,9 @@ function _createNotes() {
             {
                 id: "n102",
                 type: "note-img",
+                title: "Bobi and Me",
                 info: {
                     url: "http://some-img/me",
-                    title: "Bobi and Me"
                 },
                 style: {
                     backgroundColor: "red"
@@ -46,6 +46,7 @@ function _createNotes() {
 function createEmptyNote(){
     return {
         type: '',
+        title: '',
         isPiined: false
     }
 }
