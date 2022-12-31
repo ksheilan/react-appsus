@@ -3,11 +3,13 @@ const { useState, useEffect, Fragment } = React
 // For now, we are using utilService to make a unique ID for each todo
 import { utilService } from "../../../services/util.service.js"
 import { noteService } from "../services/note.service.js"
+import { uploadService } from "../../../services/upload.service.js"
 
 export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded }) {
     const [editorForm, setEditorForm] = useState([])
     const [answersMap, setAnswersMap] = useState({})
     const [newNote, setNewNote] = useState(noteService.createEmptyNote())
+
     useEffect(() => {
         loadEditorForm()
         if (!isEditorExpanded && newNote.info) {
@@ -18,10 +20,26 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
     function loadEditorForm() {
         setEditorForm(noteService.getEditorForm(isEditorExpanded))
     }
-
+    function onAddImage(val) {
+        const newNoteInfo = { ...newNote.info }
+        setNewNote({
+            ...newNote,
+            info: {
+                ...newNoteInfo,
+                img: val.src
+            }
+        })
+    }
+    function onSetBackgroundColor(val) {
+        setNewNote({
+            ...newNote,
+            style: {
+                backgroundColor: val
+            }
+        })
+    }
     function onChangeVal(input, val) {
         const answersToSave = { ...answersMap }
-        const isTitle = input.info.label === 'editorTitle'
         const newNoteInfo = { ...newNote.info }
         answersToSave[input.id] = val
 
@@ -35,8 +53,21 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
         })
     }
 
-    function onChangeTitle(val){
-        setNewNote({...newNote, title: val})
+    function onChangeTitle(val) {
+        setNewNote({ ...newNote, title: val })
+    }
+
+    function onUploadImg() {
+        const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
+
+        // A function to be called if request succeeds
+        function onSuccess(uploadedImgUrl) {
+            // Encode the instance of certain characters in the url
+            const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
+        }
+        // Send the image to the server
+        doUploadImg(imgDataUrl, onSuccess)
     }
     function processInput(input) {
         switch (input.type) {
@@ -69,6 +100,7 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
                 {processInput(input)}
             </div>)
         }
+        < _NoteEditorButtons setBackgroundColor={onSetBackgroundColor} addImage={onAddImage} />
     </div>
 }
 
@@ -101,4 +133,11 @@ function _NoteEditorTextArea({ label, val, onChangeVal, placeholder, onClick }) 
                 }} />
         </label>
     )
+}
+
+function _NoteEditorButtons({ setBackgroundColor, addImage }) {
+    return <div>
+        <input type="color" onClick={(event) => setBackgroundColor(event.target.value)}></input>
+        <input type="file" accept="image/*" onChange={(ev) => uploadService.loadImageFromInput(ev, addImage)} />
+    </div>
 }

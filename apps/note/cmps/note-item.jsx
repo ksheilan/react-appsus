@@ -5,14 +5,18 @@ import { utilService } from "../../../services/util.service.js"
 
 import { NoteTxt } from "./note-txt.jsx"
 import { NoteTitle } from "./note-title.jsx"
+import { NoteImg } from "./note-img.jsx"
 
 export function NoteItem({ note }) {
     const [updatedNote, setUpdatedNote] = useState(note)
 
     function processNoteProp(key, val) {
+        const id = utilService.makeId();
         switch (key) {
             case 'txt':
-                return <NoteTxt key={utilService.makeId()} val={val} />
+                return <NoteTxt key={id} val={val} />
+            case 'img':
+                return <NoteImg key={id} imgUrl={val} />
         }
     }
 

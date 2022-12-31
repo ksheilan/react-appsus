@@ -1,6 +1,7 @@
 .note-item{
     border-radius: 25px;
     padding-block: 0.75em;
+    padding-inline: 10px;
 }
 
 .note-item>.title{
