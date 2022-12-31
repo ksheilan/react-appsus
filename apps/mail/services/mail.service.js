@@ -35,6 +35,8 @@ function _createEmails() {
                 from: 'Harry potter',
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
             },
             {
                 id: 'e102',
@@ -46,18 +48,25 @@ function _createEmails() {
                 from: 'Harry potter',
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e103',
                 subject: 'sdarot.tv',
                 body: 'Would love to catch up sometimes',
                 isRead: false,
-                
                 sentAt: getHumenDate(2628133430894),
                 to: 'momo@momo.com',
                 from: loggedinUser.email,
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e104',
@@ -69,6 +78,9 @@ function _createEmails() {
                 from: 'Harry potter',
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
             },
             {
                 id: 'e105',
@@ -80,6 +92,10 @@ function _createEmails() {
                 from: 'Harry potter',
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e106',
@@ -91,6 +107,10 @@ function _createEmails() {
                 from: 'Harry potter',
                 isDelete: true,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e107',
@@ -102,6 +122,10 @@ function _createEmails() {
                 from: 'Harry potter',
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e108',
@@ -113,6 +137,10 @@ function _createEmails() {
                 from: loggedinUser.email,
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e109',
@@ -124,6 +152,10 @@ function _createEmails() {
                 from: loggedinUser.email,
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e110',
@@ -135,6 +167,10 @@ function _createEmails() {
                 from: loggedinUser.email,
                 isDelete: false,
                 isStarred: false,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e111',
@@ -146,6 +182,10 @@ function _createEmails() {
                 from: loggedinUser.email,
                 isDelete: false,
                 isStarred: true,
+                isDraft: false,
+                furterTreatment: false,
+
+
             },
             {
                 id: 'e112',
@@ -157,6 +197,36 @@ function _createEmails() {
                 from: loggedinUser.email,
                 isDelete: false,
                 isStarred: true,
+                isDraft: false,
+                furterTreatment: false,
+
+            },
+            {
+                id: 'e113',
+                subject: 'לוח דרושים',
+                body: 'Would love to catch up sometimes',
+                isRead: false,
+                sentAt: getHumenDate(1551133930594),
+                to: 'momo@momo.com',
+                from: 'DRAFTEST',
+                isDelete: false,
+                isStarred: false,
+                isDraft: true,
+                furterTreatment: false,
+
+            },
+            {
+                id: 'e114',
+                subject: 'Nomics.com news',
+                body: 'Most Active Exchanges 1.	Binance	$27.9B 2.	Coinbase Exchange	$1.16B3.	Lbank	$981M4.	HitBTC	$850M5.	CryptoMarket	$776m',
+                isRead: false,
+                sentAt: getHumenDate(265553430894),
+                to: 'momo@momo.com',
+                from: 'Harry potter',
+                isDelete: false,
+                isStarred: false,
+                isDraft: false,
+                furterTreatment: true,
             },
         ]
         storageService.saveToStorage(EMAIL_STOARGE_KEY, emails)
@@ -166,7 +236,7 @@ function _createEmails() {
 }
 
 function getDefaultFilter() {
-    return { from: '', isRead: '', isDelete: false, isStarred: '' }
+    return { from: '', isRead: '', isDelete: false, isStarred: '', isDraft: false, furterTreatment: '' }
 }
 
 function getEmptyMail() {
@@ -179,6 +249,8 @@ function getEmptyMail() {
         from: loggedinUser.email,
         isDelete: false,
         isStarred: false,
+        isDraft: false,
+        furterTreatment: false,
     }
     return mail
 }
@@ -189,18 +261,29 @@ function query(filterBy = getDefaultFilter()) {
             if (filterBy.isDelete === false) {
                 mails = mails.filter(mail => mail.isDelete === false)
             }
+            if (filterBy.isDraft === false) {
+                mails = mails.filter(mail => mail.isDraft === false)
+            }
             if (filterBy.from) {
                 const regex = new RegExp(filterBy.from, 'i')
                 mails = mails.filter(mail => regex.test(mail.from))
             }
-            if (filterBy.isRead === true) {
+            if (filterBy.isRead) {
                 mails = mails.filter(mail => mail.isRead === true)
             }
-            if (filterBy.isDelete === true) {
+            if (filterBy.isDelete) {
                 mails = mails.filter(mail => mail.isDelete === true)
             }
-            if (filterBy.isStarred === true) {
+            if (filterBy.isStarred) {
                 mails = mails.filter(mail => mail.isStarred === true)
+            }
+            if (filterBy.isDraft) {
+                mails = mails.filter(mail => mail.isDraft === true)
+
+            }
+            if (filterBy.furterTreatment) {
+                mails = mails.filter(mail => mail.furterTreatment === true)
+
             }
             return mails
         })

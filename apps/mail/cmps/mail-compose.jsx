@@ -1,4 +1,4 @@
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useParams, useNavigate, Link } = ReactRouterDOM
 
 import { MailServices } from '../services/mail.service.js'
@@ -6,14 +6,26 @@ import { MailFolderList } from './mail-folder-list.jsx'
 
 export function EmailCompose() {
     const [sentMail, setSentMail] = useState(MailServices.getEmptyMail())
-
+    let intervalIdRef = useRef(null)
     const navigate = useNavigate()
     const { mailid } = useParams()
-    console.log(mailid)
+
+
+    useEffect(() => {
+        intervalIdRef.current = setInterval(() => {
+            saveAsDraft()
+        }, 10000)
+
+        return () => {
+            clearInterval(intervalIdRef.current)
+        }
+
+    }, [])
 
     useEffect(() => {
         if (!mailid) return
         loadMail()
+
     }, [])
 
 
@@ -30,8 +42,15 @@ export function EmailCompose() {
 
     function onSaveMail(ev) {
         ev.preventDefault()
+        clearInterval(intervalIdRef.current)
         MailServices.save(sentMail).then(() => { navigate('/mail') })
     }
+
+    function saveAsDraft() {
+        let copyOfSentMail = sentMail
+        MailServices.save({ ...copyOfSentMail, isDraft: true })
+    }
+
 
     return <section className="flex full">
         <MailFolderList />
@@ -57,7 +76,6 @@ export function EmailCompose() {
                     onChange={handleChange}
                     value={sentMail.body}
                     rows="25" />
-
 
                 <button>sent</button>
             </form>

@@ -12,7 +12,7 @@ import { showSuccessMsg } from '../../../services/event-bus.service.js'
 
 export function MailIndex() {
     const [mails, setMails] = useState([])
-    const [filterBy, setFilterBy] = useState({ from: '', isRead: '', isDelete: false, isStarred: '' })
+    const [filterBy, setFilterBy] = useState(MailServices.getDefaultFilter())
     const [sortBy, setSortBy] = useState({ from: '', sentAt: MailServices.getHumenDate(new Date()) })
 
     const navigate = useNavigate()
@@ -48,6 +48,16 @@ export function MailIndex() {
             setFilterByStarred()
             showSuccessMsg('the starred ones')
         }
+        else if (params.draft) {
+            setFilterByDraft()
+            showSuccessMsg('the draft ones')
+
+        }
+        else if (params.treatment) {
+            setFilterBytreatment()
+            showSuccessMsg('the Furter Treatment')
+
+        }
     }
 
     function onSetFilterBy(filterByFilter) {
@@ -56,7 +66,7 @@ export function MailIndex() {
 
     function setFilterBySent() {
         setFilterBy((prevFilter) => {
-            return { ...prevFilter, from: prevFilter.from ? '' : 'user@appsus.com' }
+            return { ...prevFilter, from: prevFilter.from ? '' : 'user@appsus.com', isDraft: false }
         })
     }
 
@@ -73,8 +83,22 @@ export function MailIndex() {
     }
 
     function setFilterByStarred() {
-        setFilterBy((prevFilter) => {
+        setFilterBy(() => {
+            let prevFilter = MailServices.getDefaultFilter()
             return { ...prevFilter, isStarred: true }
+        })
+    }
+
+    function setFilterByDraft() {
+        setFilterBy(() => {
+            let prevFilter = MailServices.getDefaultFilter()
+            return { ...prevFilter, isDraft: true }
+        })
+    }
+
+    function setFilterBytreatment() {
+        setFilterBy((prevFilter) => {
+            return { ...prevFilter, furterTreatment: true }
         })
     }
 

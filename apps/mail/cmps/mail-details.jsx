@@ -55,6 +55,11 @@ export function MailDetails() {
 
     }
 
+    function onMarkAsFurterTreamtent() {
+        mail.furterTreatment = true
+        MailServices.save(mail).then(() => onGoBack())
+    }
+
 
     if (!mail) return <h2>loading</h2>
     return <section className="mail-details full">
@@ -62,7 +67,8 @@ export function MailDetails() {
             <MailFolderList />
             <div className="mail-info flex">
                 <div className="btn-box-details">
-                    <button onClick={onGoToEditMail} className="fa fa-thin fa-pencil"></button>
+                    <button title="Edit Mail" onClick={onGoToEditMail} className="fa fa-thin fa-pencil"></button>
+                    <button onClick={onMarkAsFurterTreamtent} className="fa-regular fa-clock"></button>
                     <button onClick={() => onRemoveMail(mail.id)} className="fa-regular fa-trash-can" title="Delete"></button>
                     <MailStarSwitch mail={mail} onStarredMail={onStarredMail} />
                     <button className="fa-regular fa-envelope-open" onClick={onGoBack} title="Go Back"></button>

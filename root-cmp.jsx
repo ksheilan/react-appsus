@@ -16,6 +16,8 @@ import { MailSent } from "./apps/mail/views/mail-sent.jsx"
 import { MailWereRead } from "./apps/mail/views/mail-were-read.jsx"
 import { MailDelete } from "./apps/mail/views/mail-delete.jsx"
 import { MailStarred } from "./apps/mail/views/mail-starred.jsx"
+import { MailDraft } from "./apps/mail/views/mail-draft.jsx"
+import { MailTretment } from "./apps/mail/views/mail-tretment.jsx"
 
 
 export function App() {
@@ -37,7 +39,8 @@ export function App() {
                 <Route element={<MailSent />} path="/mail/:sent" />
                 <Route element={<MailDelete />} path="/mail/delete/:delete" />
                 <Route element={<MailStarred />} path="/mail/starred/:starred" />
-                <Route element={<MailStarred />} path="/mail/draft/:draft" />
+                <Route element={<MailDraft />} path="/mail/draft/:draft" />
+                <Route element={<MailTretment />} path="/mail/treatment/:treatment" />
 
 
                 <Route path="/note" element={<NoteIndex />} />
