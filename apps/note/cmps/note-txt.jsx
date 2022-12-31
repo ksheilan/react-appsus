@@ -7,11 +7,11 @@ export function NoteTxt({ val }) {
         if (textContent[1]) {
             return textContent.map(txt => {
                 if (!utilService.youtubeRegEx.test(txt)) return <div key={utilService.makeId()}><p>{txt}</p></div>
-                else return <div key={utilService.makeId()}><NoteVideo /></div>
+                else return <div key={utilService.makeId()}><NoteVideo vidUrl={txt}/></div>
             })
         }
 
-        return textContent[0]
+        return <p>{textContent[0]}</p>
     }
     return <div className="text">
         {processText()}

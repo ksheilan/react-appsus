@@ -1,7 +1,8 @@
 import { utilService } from "../../../services/util.service.js"
 
-export function NoteVideo() {
+export function NoteVideo({vidUrl}) {
 
-    return <div>note video</div>
-
+    return <iframe width="100%"
+        src={vidUrl.replace('watch', 'embed')}>
+    </iframe>
 }
