@@ -2,10 +2,16 @@ const { Route, Routes } = ReactRouterDOM
 const Router = ReactRouterDOM.HashRouter
 
 import { AppHeader } from "./cmps/app-header.jsx"
-import { About } from "./views/about.jsx"
 import { Home } from "./views/home.jsx"
 
 import { NoteIndex } from "./apps/note/views/note-index.jsx"
+
+
+import { About } from "./views/about.jsx"
+import { AboutIndex } from "./cmps/about-index.jsx"
+import { Team } from "./cmps/team.jsx"
+import { Vision } from "./cmps/vision.jsx"
+
 
 import { UserMsg } from "./cmps/user-msg.jsx"
 import { EmailCompose } from "./apps/mail/cmps/mail-compose.jsx"
@@ -26,8 +32,11 @@ export function App() {
             <AppHeader />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-
+                <Route element={<About />} path="/about">
+                    <Route element={<AboutIndex />} path="/about" />
+                    <Route element={<Team />} path="/about/team" />
+                    <Route element={<Vision />} path="/about/vision" />
+                </Route>
                 <Route element={<MailIndex />} path="/mail" />
                 {/* edit and create */}
                 <Route element={<EmailCompose />} path="/mail/compose" />
