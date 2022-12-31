@@ -6,6 +6,7 @@
 .email {
     align-items: center;
     padding-left: 0.5em;
+    padding-bottom: 0.5em;
 }
 
 .mail-info-index {
@@ -26,4 +27,15 @@
     cursor: pointer;
     align-self: center;
 
+}
+
+.mail-body-preview {
+    background-color: #80808018;
+    padding: 0.7em;
+    border-radius: 5px;
+
+}
+
+.mail-body-preview:hover {
+   box-shadow: 0px 13px 15px #615bfc18, 0 19px 15px #615bfc18;
 }
