@@ -44,10 +44,11 @@ export function MailFilter({ onSetFilterBy }) {
                 id="from"
                 placeholder="Search by name" />
 
-            <input type="checkbox" name="isRead" onChange={(event) => onClickOnCheckBox(event)} />
         </div>
-
-        <h2>unread emails: {unRead.length}</h2>
+        <div className="flex">
+            <input type="checkbox" name="isRead" onChange={(event) => onClickOnCheckBox(event)} />
+            <h2>: {unRead.length}</h2>
+        </div>
     </section>
 }
 

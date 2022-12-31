@@ -49,7 +49,6 @@ export function MailDetails() {
             })
     }
 
-
     function onGoToEditMail() {
         navigate(`/mail/compose/${mail.id}`)
 

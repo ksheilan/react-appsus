@@ -7,7 +7,6 @@
         background-color: #d4dff5;
         align-items: center;
         justify-content: space-around;
-        height: fit-content;
     }
 
 
@@ -19,6 +18,10 @@
     }
 }
 
+.mail-index {
+    height: 92vh;
+}
+
 @media(min-width:650px) {
     .mail-folder-list {
         flex-direction: column;
@@ -27,6 +30,8 @@
         background-color: #d4dff5;
         align-items: center;
         justify-content: space-around;
+        min-height: 92vh;
+        padding-bottom: 0px;
     }
 
     .mail-folder-list .active {
@@ -78,4 +83,3 @@
 .fa-sharp .fa-solid .fa-star::after {
     content: '\f005';
 }
-

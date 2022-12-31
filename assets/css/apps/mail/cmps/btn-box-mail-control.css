@@ -1,0 +1,10 @@
+.btn-box-mail-control {
+    align-items: center;
+    gap: 20px;
+}
+
+@media(max-width: 650px) {
+    .btn-box-mail-control {
+        gap: 0px;
+    }
+}
