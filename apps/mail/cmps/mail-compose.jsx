@@ -42,7 +42,7 @@ export function EmailCompose() {
 
     function onSaveMail(ev) {
         ev.preventDefault()
-        clearInterval(intervalIdRef.current)
+        // clearInterval(intervalIdRef.current)
         MailServices.save(sentMail).then(() => { navigate('/mail') })
     }
 
