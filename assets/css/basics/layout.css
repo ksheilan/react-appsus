@@ -1,3 +1,9 @@
 .app>*:not(.full) {
     margin-inline: var(--page-padding);
 }
+
+/* for no space on bottem of page */
+/* header is 5vh make your view total of 95vh*/
+.app {
+    min-height: 100vh;
+}

@@ -13,8 +13,7 @@ import { showSuccessMsg } from '../../../services/event-bus.service.js'
 export function MailIndex() {
     const [mails, setMails] = useState([])
     const [filterBy, setFilterBy] = useState(MailServices.getDefaultFilter())
-    const [sortBy, setSortBy] = useState({ from: '', sentAt: MailServices.getHumenDate(new Date()) })
-
+    // const [sortBy, setSortBy] = useState({ from: '', sentAt: '' })
     const navigate = useNavigate()
     const params = useParams()
 
@@ -23,7 +22,6 @@ export function MailIndex() {
     }, [])
 
     useEffect(() => {
-        onSetSortBy(sortBy)
         loadEmails()
     }, [filterBy])
 
@@ -104,9 +102,9 @@ export function MailIndex() {
 
     function onSetSortBy(sortBy) {
         if (sortBy.sentAt) {
-            mails.sort((c1, c2) => (c1.sentAt - c2.sentAt) * sortBy.sentAt)
+            mails.sort((c1, c2) => (c1.sentAt - c2.sentAt) * mails.sentAt)
         } else if (sortBy.from) {
-            mails.sort((c1, c2) => c1.from.localeCompare(c2.from) * sortBy.from)
+            mails.sort((c1, c2) => c1.from.localeCompare(c2.from) * mails.from)
         }
     }
 
@@ -157,7 +155,7 @@ export function MailIndex() {
     return <div className="mail-index full">
         <section className="flex">
             <MailFilter onSetFilterBy={onSetFilterBy} />
-            <MailSorter onSetSortBy={onSetSortBy} />
+            {/* <MailSorter onSetSortBy={onSetSortBy} /> */}
         </section>
         <section className="mail-content">
             <MailFolderList />

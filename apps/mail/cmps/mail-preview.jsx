@@ -1,5 +1,5 @@
 import { LongTxt } from './long-txt.jsx'
-import {MailStarSwitch} from './mail-star-switch-btn.jsx'
+import { MailStarSwitch } from './mail-star-switch-btn.jsx'
 
 import { MailServices } from '../services/mail.service.js'
 
@@ -12,9 +12,9 @@ export function MailPreview({ mail, onMoveToPreview, onReadMail, onRemoveMail, o
             <MailStarSwitch mail={mail} onStarredMail={onStarredMail} />
         </div>
 
-        <div onClick={() => onMoveToPreview(mail.id)} className="mail-info-index flex">
+        <div onClick={() => onMoveToPreview(mail.id)}  className="mail-info-index flex">
             <h4>{mail.from}</h4>
-            <LongTxt txt={mail.body} length={65} />
+            <LongTxt txt={mail.body}  length={65} />
             <p>{MailServices.getHumenDate(mail.sentAt)}</p>
 
         </div>
