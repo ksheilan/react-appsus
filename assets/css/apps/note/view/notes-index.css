@@ -4,7 +4,9 @@
 .notes-layout{
     margin-block-start: 30px;
     padding-inline: var(--page-padding);
-    font-family:'Courier New', Courier, monospace;
+    /* font-family:'Courier New', Courier, monospace; */
+    display: flex;
+    flex-direction: column;
 }
 
 .note-gallery{
@@ -12,4 +14,5 @@
     gap: 10px;
     width: auto;
     padding-block-start: 20px;
+    justify-content: center;
 }

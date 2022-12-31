@@ -1,9 +1,12 @@
 .note-editor {
+    /* background-color: red; */
     width: 50vw;
     border: none;
     border-radius: 0.75em;
     padding: 0.75em;
     box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+    align-self: center;
+    font-size: 1.2rem;
 }
 
 .note-editor .editor-item {
@@ -12,4 +15,33 @@
     outline: none;
     resize: none;
     padding-block: 0.5em;
+    background-color: transparent;
+    font-size: 1em;
+    color: black;
+}
+
+
+.color-picker {
+    height: 1.5625em;
+    width: 1.5625em;
+    border-radius: 50%;
+    /* border: 1px solid rgb(15, 15, 15); */
+    box-shadow: 0 0 5px rgb(46, 46, 46);
+    display: inline-block;
+    cursor: pointer;
+}
+
+.editor-actions {
+    padding-block-start: 0.75em;
+    border-top: 1px solid rgb(219, 219, 219);
+}
+
+.editor-actions>span{
+    align-self: center;
+    justify-self: center;
+    cursor: pointer;
+}
+
+.note-editor .editor-buttons>* {
+    padding-inline-end: 1.5em;
 }

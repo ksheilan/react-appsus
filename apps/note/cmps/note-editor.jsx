@@ -5,17 +5,17 @@ import { utilService } from "../../../services/util.service.js"
 import { noteService } from "../services/note.service.js"
 import { uploadService } from "../../../services/upload.service.js"
 
-export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded }) {
+export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded, addNote }) {
     const [editorForm, setEditorForm] = useState([])
     const [answersMap, setAnswersMap] = useState({})
     const [newNote, setNewNote] = useState(noteService.createEmptyNote())
 
     useEffect(() => {
         loadEditorForm()
-        if (!isEditorExpanded && newNote.info) {
-            noteService.save(newNote)
-        }
-    }, [isEditorExpanded])
+        // if (!isEditorExpanded && newNote.info) {
+        //     addNote(newNote)
+        // }
+    }, [])
 
     function loadEditorForm() {
         setEditorForm(noteService.getEditorForm(isEditorExpanded))
@@ -57,18 +57,6 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
         setNewNote({ ...newNote, title: val })
     }
 
-    function onUploadImg() {
-        const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
-
-        // A function to be called if request succeeds
-        function onSuccess(uploadedImgUrl) {
-            // Encode the instance of certain characters in the url
-            const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
-        }
-        // Send the image to the server
-        doUploadImg(imgDataUrl, onSuccess)
-    }
     function processInput(input) {
         switch (input.type) {
             case 'textBox':
@@ -94,13 +82,21 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded })
     }
 
 
-    return <div className="note-editor" ref={editorRef}>
+    return <div className="note-editor" ref={editorRef} style={newNote.style || { backgroundColor: '#fff' }}>
         {
             editorForm.map(input => <div key={input.id}>
                 {processInput(input)}
             </div>)
         }
-        < _NoteEditorButtons setBackgroundColor={onSetBackgroundColor} addImage={onAddImage} />
+        {isEditorExpanded &&
+            <div className="editor-actions flex space-between align-center">
+                < _NoteEditorButtons setBackgroundColor={onSetBackgroundColor} addImage={onAddImage} />
+                <span onClick={() => {
+                    setAnswersMap({})
+                    addNote(newNote)
+                    }}>Save</span>
+            </div>
+        }
     </div>
 }
 
@@ -136,8 +132,19 @@ function _NoteEditorTextArea({ label, val, onChangeVal, placeholder, onClick }) 
 }
 
 function _NoteEditorButtons({ setBackgroundColor, addImage }) {
-    return <div>
-        <input type="color" onClick={(event) => setBackgroundColor(event.target.value)}></input>
-        <input type="file" accept="image/*" onChange={(ev) => uploadService.loadImageFromInput(ev, addImage)} />
+    const [currColor, setCurrColor] = useState('#fff')
+    return <div className="editor-buttons">
+        <label>
+            <input style={{ display: 'none' }} type="color" onChange={(event) => {
+                setCurrColor(event.target.value)
+                setBackgroundColor(event.target.value)
+            }}></input>
+            {/* <span className="color-picker" style={{ backgroundColor: currColor }}></span> */}
+            <span className="fa fa-palette" style={{ fontSize: '1.5625em', cursor: 'pointer' }}></span>
+        </label>
+        <label>
+            <input style={{ display: 'none' }} type="file" accept="image/*" onChange={(ev) => uploadService.loadImageFromInput(ev, addImage)} />
+            <span className="fa fa-upload" style={{ fontSize: '1.5625em', cursor: 'pointer' }}></span>
+        </label>
     </div>
 }

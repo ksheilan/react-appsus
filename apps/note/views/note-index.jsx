@@ -14,14 +14,19 @@ export function NoteIndex() {
     useEffect(() => {
         setIsLoading(true)
         loadNotes()
-    }, [isEditorExpanded])
+    }, [])
 
     function loadNotes() {
         noteService.query().then((notesToUpdate) => {
             setNotes(notesToUpdate)
         })
     }
-
+    function onAddNote(note) {
+        noteService.save(note).then(() => {
+            loadNotes()
+        }
+        )
+    }
     return <div className="notes-layout full" onClick={(ev) => {
         if (noteEditorRef.current && !noteEditorRef.current.contains(ev.target)) {
             setIsEditorExpanded(false);
@@ -31,7 +36,8 @@ export function NoteIndex() {
         <NoteEditor
             editorRef={noteEditorRef}
             isEditorExpanded={isEditorExpanded}
-            setIsEditorExpanded={setIsEditorExpanded} />
+            setIsEditorExpanded={setIsEditorExpanded}
+            addNote={onAddNote} />
         <div className="note-gallery grid" onClick={() => setIsEditorExpanded(false)}>
             {notes.map(note => <NoteItem key={note.id} note={note} />)}
         </div>
