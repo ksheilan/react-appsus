@@ -1,9 +1,12 @@
-/* .mail-index { */
-    /* max-height: 93vh; */
-/* } */
-
 .emails-main-area {
     background-color: var(--email-bg-color);
     color: var(--email-color);
     flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+@media(max-width: 650px) {
+    .emails-main-area {
+        padding-bottom: 1.3em;
+    }
 }

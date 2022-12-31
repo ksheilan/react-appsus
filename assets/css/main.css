@@ -19,6 +19,8 @@
 @import './apps/mail/cmps/mail-index.css';
 @import './apps/mail/cmps/mail-info.css';
 @import './apps/mail/cmps/mail-compose-area.css';
+@import './apps/mail/cmps/btn-box-mail-control.css';
+@import './apps/mail/cmps/mail-filter.css';
 
 /* Cmps */
 

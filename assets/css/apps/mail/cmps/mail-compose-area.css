@@ -1,19 +1,31 @@
 .mail-compose-area {
     align-items: center;
-    justify-content: center;
-    align-content: center;
     flex-grow: 1;
-    min-height: 91vh;
+    min-height: 93vh;
+    background-color: var(--email-bg-color);
 }
 
 .mail-compose-area form {
     width: 250px;
     border: 1px solid var(--email-color);
+    background-color: var(--email-bg-color);
+}
+
+.mail-compose-area button {
+    background-color: var(--email-bg-color);
+    border: none;
+    cursor: pointer;
+
+}
+
+
+.btn-box-mail-compose {
+    align-items: center;
 }
 
 @media(min-width:650px) {
     .mail-compose-area form {
         width: 400px;
     }
-    
+
 }

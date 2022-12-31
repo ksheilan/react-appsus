@@ -2,7 +2,7 @@
     .mail-folder-list {
         position: fixed;
         flex-direction: row;
-        bottom: 0px;
+        bottom: 0;
         min-width: 100vw;
         background-color: #d4dff5;
         align-items: center;
@@ -27,8 +27,6 @@
         background-color: #d4dff5;
         align-items: center;
         justify-content: space-around;
-        min-height: 100%;
-
     }
 
     .mail-folder-list .active {
@@ -44,15 +42,12 @@
     cursor: pointer;
 }
 
-.fa-light .fa-pencil::before {
-    content: "\f303";
-}
 
 .fa-regular .fa-envelope-open::before {
     content: "\f2b6";
 }
 
-.fa-regular .fa-star::before {
+.fa .fa-regular .fa-star::before {
     content: "\f005";
 }
 
@@ -79,3 +74,8 @@
 .fa-light .fa-inbox::before {
     content: "\f01c";
 }
+
+.fa-sharp .fa-solid .fa-star::after {
+    content: '\f005';
+}
+

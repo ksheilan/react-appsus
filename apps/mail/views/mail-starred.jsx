@@ -1,6 +1,6 @@
 import { MailIndex } from "./mail-index.jsx";
 
 
-export function MailWereRead() {
+export function MailStarred() {
     return <MailIndex />
 }
