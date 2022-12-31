@@ -2,6 +2,8 @@
     border-radius: 25px;
     padding-block: 0.75em;
     padding-inline: 10px;
+    margin: 20px;
+    width: 100%;
 }
 
 .note-item>.title{
@@ -10,4 +12,8 @@
 
 .note-item>.text{
     white-space: pre-wrap;
+}
+
+.note-item>.image{
+    width: 200px;
 }

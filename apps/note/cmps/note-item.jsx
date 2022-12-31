@@ -7,9 +7,7 @@ import { NoteTxt } from "./note-txt.jsx"
 import { NoteTitle } from "./note-title.jsx"
 import { NoteImg } from "./note-img.jsx"
 
-export function NoteItem({ note }) {
-    const [updatedNote, setUpdatedNote] = useState(note)
-
+export function NoteItem({ note, onRemoveNote }) {
     function processNoteProp(key, val) {
         const id = utilService.makeId();
         switch (key) {
@@ -29,12 +27,11 @@ export function NoteItem({ note }) {
 
     return (
         <div
-            className="note-item flexC align-center"
+            className="note-item flexC align-center space-between"
             style={note.style || { backgroundColor: '#fff', border: '1px solid #d1d1d1' }}>
-            {updatedNote.title && <NoteTitle val={updatedNote.title} />}
-            {
-                Object.keys(updatedNote.info).map(key => processNoteProp(key, updatedNote.info[key]))
-            }
+            <span className="fa fa-trash" style={{ cursor: 'pointer' }} onClick={() => onRemoveNote(note.id)}></span>
+            {note.title && <NoteTitle val={note.title} />}
+            {Object.keys(note.info).map(key => processNoteProp(key, note.info[key]))}
         </div>
     )
 

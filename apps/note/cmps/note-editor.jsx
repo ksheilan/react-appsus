@@ -5,7 +5,7 @@ import { utilService } from "../../../services/util.service.js"
 import { noteService } from "../services/note.service.js"
 import { uploadService } from "../../../services/upload.service.js"
 
-export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded, addNote }) {
+export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded, onAddNote }) {
     const [editorForm, setEditorForm] = useState([])
     const [answersMap, setAnswersMap] = useState({})
     const [newNote, setNewNote] = useState(noteService.createEmptyNote())
@@ -13,9 +13,9 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded, a
     useEffect(() => {
         loadEditorForm()
         // if (!isEditorExpanded && newNote.info) {
-        //     addNote(newNote)
+        //     onAddNote(newNote)
         // }
-    }, [])
+    }, [isEditorExpanded])
 
     function loadEditorForm() {
         setEditorForm(noteService.getEditorForm(isEditorExpanded))
@@ -93,7 +93,7 @@ export function NoteEditor({ editorRef, isEditorExpanded, setIsEditorExpanded, a
                 < _NoteEditorButtons setBackgroundColor={onSetBackgroundColor} addImage={onAddImage} />
                 <span onClick={() => {
                     setAnswersMap({})
-                    addNote(newNote)
+                    onAddNote(newNote)
                     }}>Save</span>
             </div>
         }

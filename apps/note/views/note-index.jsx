@@ -6,13 +6,11 @@ import { NoteItem } from "../cmps/note-item.jsx"
 import { NoteEditor } from "../cmps/note-editor.jsx"
 
 export function NoteIndex() {
-    const [isLoading, setIsLoading] = useState(false)
     const [notes, setNotes] = useState([])
     const [isEditorExpanded, setIsEditorExpanded] = useState(false)
     const noteEditorRef = useRef(null);
 
     useEffect(() => {
-        setIsLoading(true)
         loadNotes()
     }, [])
 
@@ -22,10 +20,10 @@ export function NoteIndex() {
         })
     }
     function onAddNote(note) {
-        noteService.save(note).then(() => {
-            loadNotes()
-        }
-        )
+        noteService.save(note).then(() => { loadNotes() })
+    }
+    function onRemoveNote(noteId) {
+        noteService.remove(noteId).then(() => { loadNotes() })
     }
     return <div className="notes-layout full" onClick={(ev) => {
         if (noteEditorRef.current && !noteEditorRef.current.contains(ev.target)) {
@@ -37,9 +35,9 @@ export function NoteIndex() {
             editorRef={noteEditorRef}
             isEditorExpanded={isEditorExpanded}
             setIsEditorExpanded={setIsEditorExpanded}
-            addNote={onAddNote} />
+            onAddNote={onAddNote} />
         <div className="note-gallery grid" onClick={() => setIsEditorExpanded(false)}>
-            {notes.map(note => <NoteItem key={note.id} note={note} />)}
+            {notes.map(note => <NoteItem key={note.id} note={note} onRemoveNote={onRemoveNote} />)}
         </div>
     </div>
 
