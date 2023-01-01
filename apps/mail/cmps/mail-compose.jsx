@@ -14,7 +14,7 @@ export function EmailCompose() {
     useEffect(() => {
         intervalIdRef.current = setInterval(() => {
             saveAsDraft()
-        }, 10000)
+        }, 5000)
 
         return () => {
             clearInterval(intervalIdRef.current)
